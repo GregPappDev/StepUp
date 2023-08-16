@@ -27,4 +27,5 @@ public class Customer
     public int PaymentDeadline { get; set; }
     public ICollection<PeriodicInvoice> PeriodicInvoices { get; set; } = new List<PeriodicInvoice>();
     public ICollection<Service> Services { get; set; } = new List<Service>();
+    public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 }
