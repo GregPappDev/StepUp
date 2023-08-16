@@ -10,5 +10,6 @@ namespace StepUpApi.Models
         public string JobTitle { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
+        public ICollection<Customer> Customers { get; set; } = new List<Customer>();
     }
 }
