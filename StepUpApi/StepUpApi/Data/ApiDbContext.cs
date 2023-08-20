@@ -19,5 +19,8 @@ public class ApiDbContext : DbContext
     public DbSet<Service> Services { get; set; }
     public DbSet<User> Users { get; set; }
 
-    
+    public ApiDbContext(DbContextOptions<ApiDbContext> options ) : base( options )
+    {
+        
+    }
 }
