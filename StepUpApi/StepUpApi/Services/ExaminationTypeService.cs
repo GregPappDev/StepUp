@@ -7,12 +7,10 @@ namespace StepUpApi.Services
     public class ExaminationTypeService : IExaminationTypeService
     {
         private readonly ApiDbContext _context;
-        private IExaminationTypeService _service;
-
-        public ExaminationTypeService(ApiDbContext context, IExaminationTypeService service)
+        
+        public ExaminationTypeService(ApiDbContext context)
         {
             _context = context;
-            _service = service;
         }
 
         public IEnumerable<ExaminationType> GetAll()

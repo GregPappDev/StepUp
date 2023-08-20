@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using StepUpApi.Data;
+using StepUpApi.Data.Seed;
+using StepUpApi.Services;
+using StepUpApi.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,10 +15,21 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddTransient<IExaminationTypeService, ExaminationTypeService>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+using (var serviceScope = app.Services.CreateScope())
+{
+    var context = serviceScope.ServiceProvider.GetRequiredService<ApiDbContext>();
+
+    DataSeed dataSeed = new(context);
+    dataSeed.CreateAll();
+}
+
+
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
