@@ -1,4 +1,5 @@
-﻿using StepUpApi.Models;
+﻿using StepUpApi.DTOs.ExaminationType;
+using StepUpApi.Models;
 
 namespace StepUpApi.Services.Interfaces
 {
@@ -6,8 +7,8 @@ namespace StepUpApi.Services.Interfaces
     {
         Task<ServiceResponse<IEnumerable<ExaminationType>>> GetAll();
         Task<ServiceResponse<ExaminationType>> GetById(Guid id);
-        Task<ServiceResponse<ExaminationType>> Create(ExaminationType item);
-        Task<ServiceResponse<ExaminationType>> Update(ExaminationType updatedData);
+        Task<ServiceResponse<ExaminationType>> Create(UpdateExaminationTypeDto dtoType);
+        Task<ServiceResponse<ExaminationType>> Update(UpdateExaminationTypeDto updatedData);
         void Delete(Guid id);
         
     }

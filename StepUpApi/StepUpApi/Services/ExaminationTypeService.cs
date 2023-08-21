@@ -1,4 +1,6 @@
-﻿using StepUpApi.Data;
+﻿using AutoMapper;
+using StepUpApi.Data;
+using StepUpApi.DTOs.ExaminationType;
 using StepUpApi.Models;
 using StepUpApi.Services.Interfaces;
 
@@ -7,10 +9,12 @@ namespace StepUpApi.Services
     public class ExaminationTypeService : IExaminationTypeService
     {
         private readonly ApiDbContext _context;
+        private readonly IMapper _mapper;
         
-        public ExaminationTypeService(ApiDbContext context)
+        public ExaminationTypeService(ApiDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<ServiceResponse<IEnumerable<ExaminationType>>> GetAll()
@@ -27,22 +31,25 @@ namespace StepUpApi.Services
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<ExaminationType>> Create(ExaminationType item)
+        public async Task<ServiceResponse<ExaminationType>> Create(UpdateExaminationTypeDto dtoType)
         {
             var serviceResponse = new ServiceResponse<ExaminationType>();
-            if (_context.ExaminationTypes.Any(type => type.Type == item.Type))
+            if (_context.ExaminationTypes.Any(type => type.Type == dtoType.Type))
             {
                 serviceResponse.Data = null;
                 return serviceResponse;
             }
-            _context.ExaminationTypes.Add(item);
+
+            var newType = _mapper.Map<ExaminationType>(dtoType);
+
+            _context.ExaminationTypes.Add(newType);
             _context.SaveChanges();
                         
-            serviceResponse.Data = item;
+            serviceResponse.Data = newType;
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<ExaminationType>> Update(ExaminationType updatedData)
+        public async Task<ServiceResponse<ExaminationType>> Update(UpdateExaminationTypeDto updatedData)
         {
             throw new NotImplementedException();
         }

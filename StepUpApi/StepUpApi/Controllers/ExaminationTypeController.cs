@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StepUpApi.DTOs.ExaminationType;
 using StepUpApi.Models;
 using StepUpApi.Services.Interfaces;
 
@@ -34,7 +35,7 @@ namespace StepUpApi.Controllers
 
         
         [HttpPost]
-        public void Create([FromBody] ExaminationType type)
+        public void Create([FromBody] UpdateExaminationTypeDto type)
         {
             _service.Create(type);
         }
