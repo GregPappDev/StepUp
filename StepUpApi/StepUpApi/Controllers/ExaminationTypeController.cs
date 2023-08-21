@@ -35,21 +35,23 @@ namespace StepUpApi.Controllers
 
         
         [HttpPost]
-        public void Create([FromBody] UpdateExaminationTypeDto type)
+        public async Task<ActionResult<ServiceResponse<ExaminationType>>> Create([FromBody] UpdateExaminationTypeDto type)
         {
-            _service.Create(type);
+            return Ok(await _service.Create(type));
         }
 
         // PUT api/<ExaminationTypeController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ActionResult<ServiceResponse<ExaminationType>>> Put(Guid id, [FromBody] UpdateExaminationTypeDto value)
         {
+            return Ok(await _service.Update(id, value));
         }
 
         // DELETE api/<ExaminationTypeController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
+            _service.Delete(id);
         }
     }
 }

@@ -49,9 +49,24 @@ namespace StepUpApi.Services
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<ExaminationType>> Update(UpdateExaminationTypeDto updatedData)
+        public async Task<ServiceResponse<ExaminationType>> Update(Guid id, UpdateExaminationTypeDto updatedData)
         {
-            throw new NotImplementedException();
+            var serviceResponse = new ServiceResponse<ExaminationType>();
+
+            var examinationType = _context.ExaminationTypes.FirstOrDefault(e => e.Id == id);
+            if (examinationType == null) 
+            {
+                serviceResponse.Data = null;
+                return serviceResponse;
+            }
+
+            _mapper.Map(updatedData, examinationType);
+            _context.SaveChanges();
+
+            serviceResponse.Data = examinationType;
+
+            return serviceResponse;
+            
         }
 
         public async void Delete(Guid id)

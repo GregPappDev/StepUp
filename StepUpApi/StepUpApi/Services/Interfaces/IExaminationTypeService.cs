@@ -8,7 +8,7 @@ namespace StepUpApi.Services.Interfaces
         Task<ServiceResponse<IEnumerable<ExaminationType>>> GetAll();
         Task<ServiceResponse<ExaminationType>> GetById(Guid id);
         Task<ServiceResponse<ExaminationType>> Create(UpdateExaminationTypeDto dtoType);
-        Task<ServiceResponse<ExaminationType>> Update(UpdateExaminationTypeDto updatedData);
+        Task<ServiceResponse<ExaminationType>> Update(Guid id, UpdateExaminationTypeDto updatedData);
         void Delete(Guid id);
         
     }
