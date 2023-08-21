@@ -23,8 +23,13 @@ using (var serviceScope = app.Services.CreateScope())
 {
     var context = serviceScope.ServiceProvider.GetRequiredService<ApiDbContext>();
 
-    DataSeed dataSeed = new(context);
-    dataSeed.CreateAll();
+    context.Database.EnsureDeleted();
+
+    if (context.Database.EnsureCreated())
+    {
+        DataSeed dataSeed = new(context);
+        dataSeed.CreateAll();
+    }
 }
 
 

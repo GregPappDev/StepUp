@@ -20,16 +20,16 @@ namespace StepUpApi.Controllers
 
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<ActionResult<ServiceResponse<IEnumerable<ExaminationType>>>> GetAll()
         {
-            return Ok(_service.GetAll());
+            return Ok(await _service.GetAll());
         }
 
         
         [HttpGet("{id}")]
-        public IActionResult GetById(Guid id)
+        public async Task<ActionResult<ServiceResponse<ExaminationType>>> GetById(Guid id)
         {
-            return Ok(_service.GetById(id));
+            return Ok(await _service.GetById(id));
         }
 
         

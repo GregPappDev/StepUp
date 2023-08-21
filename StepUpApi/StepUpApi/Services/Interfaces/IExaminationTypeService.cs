@@ -4,10 +4,10 @@ namespace StepUpApi.Services.Interfaces
 {
     public interface IExaminationTypeService
     {
-        IEnumerable<ExaminationType> GetAll();
-        ExaminationType? GetById(Guid id);
-        void Create(ExaminationType item);
-        ExaminationType? Update(ExaminationType updatedData);
+        Task<ServiceResponse<IEnumerable<ExaminationType>>> GetAll();
+        Task<ServiceResponse<ExaminationType>> GetById(Guid id);
+        Task<ServiceResponse<ExaminationType>> Create(ExaminationType item);
+        Task<ServiceResponse<ExaminationType>> Update(ExaminationType updatedData);
         void Delete(Guid id);
         
     }

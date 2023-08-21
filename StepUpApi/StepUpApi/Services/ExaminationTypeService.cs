@@ -13,33 +13,45 @@ namespace StepUpApi.Services
             _context = context;
         }
 
-        public IEnumerable<ExaminationType> GetAll()
+        public async Task<ServiceResponse<IEnumerable<ExaminationType>>> GetAll()
         {
-            return _context.ExaminationTypes;
+            var serviceResponse = new ServiceResponse<IEnumerable<ExaminationType>>();
+            serviceResponse.Data = _context.ExaminationTypes;
+            return serviceResponse;
         }
 
-        public ExaminationType? GetById(Guid id)
+        public async Task<ServiceResponse<ExaminationType>> GetById(Guid id)
         {
-            return _context.ExaminationTypes.FirstOrDefault( e => e.Id == id);
+            var serviceResponse = new ServiceResponse<ExaminationType>();
+            serviceResponse.Data = _context.ExaminationTypes.FirstOrDefault(e => e.Id == id);
+            return serviceResponse;
         }
 
-        public void Create(ExaminationType item)
+        public async Task<ServiceResponse<ExaminationType>> Create(ExaminationType item)
         {
-            if (_context.ExaminationTypes.Any(type => type.Type == item.Type)) return;
+            var serviceResponse = new ServiceResponse<ExaminationType>();
+            if (_context.ExaminationTypes.Any(type => type.Type == item.Type))
+            {
+                serviceResponse.Data = null;
+                return serviceResponse;
+            }
             _context.ExaminationTypes.Add(item);
             _context.SaveChanges();
+                        
+            serviceResponse.Data = item;
+            return serviceResponse;
         }
 
-        public ExaminationType? Update(ExaminationType updatedData)
+        public async Task<ServiceResponse<ExaminationType>> Update(ExaminationType updatedData)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(Guid id)
+        public async void Delete(Guid id)
         {
-            ExaminationType? examinationType = GetById(id);
-            if (examinationType == null) return;
-            _context.ExaminationTypes.Remove(examinationType);
+            var serviceResponse = await GetById(id);
+            if (serviceResponse.Data == null) return;
+            _context.ExaminationTypes.Remove(serviceResponse.Data);
             _context.SaveChanges();
         }
     }
