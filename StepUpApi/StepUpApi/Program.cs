@@ -17,6 +17,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddTransient<IExaminationTypeService, ExaminationTypeService>();
+builder.Services.AddTransient<IUserService, UserService>();
 
 var app = builder.Build();
 
