@@ -18,6 +18,13 @@ namespace StepUpApi.Services
             _mapper = mapper;
         }
 
+        public async Task<ServiceResponse<IEnumerable<User>>> GetAll()
+        {
+            var serviceResponse = new ServiceResponse<IEnumerable<User>>();
+            serviceResponse.Data = _context.Users;
+            return serviceResponse;
+        }
+
         public async Task<ServiceResponse<User>> RegisterUser(CreateUserDto userDto)
         {
             var serviceResponse = new ServiceResponse<User>();
@@ -33,6 +40,8 @@ namespace StepUpApi.Services
             newUser.Name = userDto.Name;
             newUser.UserName = userDto.UserName;
             newUser.PasswordHash = passwordHash; newUser.PasswordSalt = passwordSalt;
+            _context.Users.Add(newUser);
+            _context.SaveChanges();
 
             serviceResponse.Data = newUser;
 

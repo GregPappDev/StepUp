@@ -11,17 +11,23 @@ namespace StepUpApi.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IUserService _service;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService service)
         {
-            _userService = userService;
+            _service = service;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<ServiceResponse<IEnumerable<User>>>> GetAll()
+        {
+            return Ok(await _service.GetAll());
         }
 
         [HttpPost("[action]")]
         public async Task<ActionResult<ServiceResponse<User>>> RegisterUser(CreateUserDto userDto)
         {
-            return Ok(await _userService.RegisterUser(userDto));
+            return Ok(await _service.RegisterUser(userDto));
         }
 }
 }
