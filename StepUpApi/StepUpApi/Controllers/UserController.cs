@@ -29,5 +29,11 @@ namespace StepUpApi.Controllers
         {
             return Ok(await _service.RegisterUser(userDto));
         }
-}
+
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ServiceResponse<string>>> Login(LoginUserDto userDto)
+        {
+            return Ok(await _service.Login(userDto));
+        }
+    }
 }

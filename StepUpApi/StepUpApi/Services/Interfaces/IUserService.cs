@@ -7,5 +7,8 @@ namespace StepUpApi.Services.Interfaces
     {
         Task<ServiceResponse<IEnumerable<User>>> GetAll();
         Task<ServiceResponse<User>> RegisterUser(CreateUserDto userDto);
+        Task<ServiceResponse<string>> Login(LoginUserDto userDto);
+
+
     }
 }

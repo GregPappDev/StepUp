@@ -45,7 +45,7 @@ namespace StepUpApi.Data.Seed
                 var newUser = new User();
                 newUser.Name = user;
                 newUser.UserName = String.Concat(user.Where(c => !Char.IsWhiteSpace(c))).ToLower();
-                string password = Random.Shared.Next(100000, 999999).ToString();
+                string password = String.Concat(user.Where(c => !Char.IsWhiteSpace(c))).ToLower();
                 CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
                 newUser.PasswordHash = passwordHash; 
                 newUser.PasswordSalt = passwordSalt;
