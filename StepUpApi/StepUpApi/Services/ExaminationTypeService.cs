@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using StepUpApi.Data;
 using StepUpApi.DTOs.ExaminationType;
 using StepUpApi.Models;
@@ -20,21 +21,21 @@ namespace StepUpApi.Services
         public async Task<ServiceResponse<IEnumerable<ExaminationType>>> GetAll()
         {
             var serviceResponse = new ServiceResponse<IEnumerable<ExaminationType>>();
-            serviceResponse.Data = _context.ExaminationTypes;
+            serviceResponse.Data = await _context.ExaminationTypes.ToListAsync();
             return serviceResponse;
         }
 
         public async Task<ServiceResponse<ExaminationType>> GetById(Guid id)
         {
             var serviceResponse = new ServiceResponse<ExaminationType>();
-            serviceResponse.Data = _context.ExaminationTypes.FirstOrDefault(e => e.Id == id);
+            serviceResponse.Data = await _context.ExaminationTypes.FirstOrDefaultAsync(e => e.Id == id);
             return serviceResponse;
         }
 
         public async Task<ServiceResponse<ExaminationType>> Create(UpdateExaminationTypeDto dtoType)
         {
             var serviceResponse = new ServiceResponse<ExaminationType>();
-            if (_context.ExaminationTypes.Any(type => type.Type == dtoType.Type))
+            if (await _context.ExaminationTypes.AnyAsync(type => type.Type == dtoType.Type))
             {
                 serviceResponse.Data = null;
                 return serviceResponse;
@@ -43,7 +44,7 @@ namespace StepUpApi.Services
             var newType = _mapper.Map<ExaminationType>(dtoType);
 
             _context.ExaminationTypes.Add(newType);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
                         
             serviceResponse.Data = newType;
             return serviceResponse;
@@ -53,7 +54,7 @@ namespace StepUpApi.Services
         {
             var serviceResponse = new ServiceResponse<ExaminationType>();
 
-            var examinationType = _context.ExaminationTypes.FirstOrDefault(e => e.Id == id);
+            var examinationType = await _context.ExaminationTypes.FirstOrDefaultAsync(e => e.Id == id);
             if (examinationType == null) 
             {
                 serviceResponse.Data = null;
@@ -61,7 +62,7 @@ namespace StepUpApi.Services
             }
 
             _mapper.Map(updatedData, examinationType);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             serviceResponse.Data = examinationType;
 
@@ -69,12 +70,22 @@ namespace StepUpApi.Services
             
         }
 
-        public async void Delete(Guid id)
+        public async Task<ServiceResponse<ExaminationType>> Delete(Guid id)
         {
             var serviceResponse = await GetById(id);
-            if (serviceResponse.Data == null) return;
+            if (serviceResponse.Data == null)
+            {
+                serviceResponse.Message = "No examination type found";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            };
+
             _context.ExaminationTypes.Remove(serviceResponse.Data);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+
+            serviceResponse.Data = null;
+
+            return serviceResponse;
         }
     }
 }

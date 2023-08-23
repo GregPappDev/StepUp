@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using StepUpApi.Data;
 using StepUpApi.DTOs.User;
@@ -26,7 +27,7 @@ namespace StepUpApi.Services
         public async Task<ServiceResponse<IEnumerable<User>>> GetAll()
         {
             var serviceResponse = new ServiceResponse<IEnumerable<User>>();
-            serviceResponse.Data = _context.Users;
+            serviceResponse.Data = await _context.Users.ToListAsync();
             return serviceResponse;
         }
 
@@ -46,7 +47,7 @@ namespace StepUpApi.Services
             newUser.UserName = userDto.UserName;
             newUser.PasswordHash = passwordHash; newUser.PasswordSalt = passwordSalt;
             _context.Users.Add(newUser);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             serviceResponse.Data = newUser;
 
@@ -57,7 +58,7 @@ namespace StepUpApi.Services
         {
             var serviceResponse = new ServiceResponse<string>();
 
-            var user = _context.Users.FirstOrDefault(u =>  u.UserName == userDto.UserName);
+            var user = await _context.Users.FirstOrDefaultAsync(u =>  u.UserName == userDto.UserName);
 
             if (user == null)
             {
@@ -80,7 +81,7 @@ namespace StepUpApi.Services
 
 
 
-        //-----------------------------------------------------------------------------------------------
+        #region
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512())
@@ -119,6 +120,8 @@ namespace StepUpApi.Services
 
             return jwt;
         }
+
+        #endregion
 
     }
 }
