@@ -60,7 +60,9 @@ namespace StepUpApi.Services
         {
             var serviceResponse = new ServiceResponse<string>();
 
-            var user = await _context.Users.FirstOrDefaultAsync(u =>  u.UserName == userDto.UserName);
+            var user = await _context.Users
+                .Include(user => user.Roles)
+                .FirstOrDefaultAsync(u =>  u.UserName == userDto.UserName);
 
             if (user == null)
             {
@@ -108,6 +110,7 @@ namespace StepUpApi.Services
             {
                 new Claim(ClaimTypes.Name, user.UserName)
             };
+            claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role.Type)));
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
 

@@ -19,14 +19,14 @@ namespace StepUpApi.Controllers
             _service = service;
         }
 
-        [Authorize]
+        [Authorize (Roles = "admin")]
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<IEnumerable<User>>>> GetAll()
         {
             return Ok(await _service.GetAll());
         }
 
-        [Authorize]
+        [Authorize (Roles = "nurse")]
         [HttpPost("[action]")]
         public async Task<ActionResult<ServiceResponse<User>>> RegisterUser(CreateUserDto userDto)
         {
