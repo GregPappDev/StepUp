@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StepUpApi.DTOs.User;
 using StepUpApi.Models;
@@ -18,6 +19,7 @@ namespace StepUpApi.Controllers
             _service = service;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<IEnumerable<User>>>> GetAll()
         {
