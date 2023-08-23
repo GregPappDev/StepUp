@@ -15,6 +15,7 @@ namespace StepUpApi.Data.Seed
         public void CreateAll()
         {
             CreateExaminationTypes();
+            CreateRoles();
             CreateUsers();
         }
 
@@ -40,17 +41,23 @@ namespace StepUpApi.Data.Seed
                 "Michael Taylor"
             };
 
-            foreach (var user in users)
+            var roles = _context.Roles.ToList();
+
+            for(var i = 0; i < users.Count; i++)
             {
                 var newUser = new User();
-                newUser.Name = user;
-                newUser.UserName = String.Concat(user.Where(c => !Char.IsWhiteSpace(c))).ToLower();
-                string password = String.Concat(user.Where(c => !Char.IsWhiteSpace(c))).ToLower();
+                newUser.Name = users[i];
+                newUser.UserName = String.Concat(users[i].Where(c => !Char.IsWhiteSpace(c))).ToLower();
+                string password = String.Concat(users[i].Where(c => !Char.IsWhiteSpace(c))).ToLower();
                 CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
                 newUser.PasswordHash = passwordHash; 
                 newUser.PasswordSalt = passwordSalt;
+
+                var role = roles[i];
+                newUser.Roles.Add(role);
+                
                 _context.Users.Add(newUser);
-                _context.SaveChanges(true);
+                _context.SaveChanges();
             }
         }
 
@@ -63,6 +70,20 @@ namespace StepUpApi.Data.Seed
             }
         }
 
-
+        private void CreateRoles()
+        {
+            var roles = new List<Role>();
+            
+            var admin = new Role();
+            admin.Type = "admin";
+            roles.Add(admin);
+            
+            var nurse = new Role();
+            nurse.Type = "nurse";
+            roles.Add(nurse);
+            
+            _context.Roles.AddRange(roles);
+            _context.SaveChanges();
+        }
     }
 }
