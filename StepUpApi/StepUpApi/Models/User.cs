@@ -16,7 +16,7 @@ public class User
     public string Name { get; set; } = string.Empty;
     public EmployeeType? EmployeeType { get; set; }
     [JsonIgnore]
-    public ICollection<Role> Collection { get; set; } = new List<Role>();
+    public ICollection<Role> Roles { get; set; } = new List<Role>();
     [JsonIgnore]
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     [JsonIgnore]
