@@ -27,7 +27,9 @@ namespace StepUpApi.Services
         public async Task<ServiceResponse<IEnumerable<User>>> GetAll()
         {
             var serviceResponse = new ServiceResponse<IEnumerable<User>>();
-            serviceResponse.Data = await _context.Users.ToListAsync();
+            serviceResponse.Data = await _context.Users
+                .Include(u => u.Roles)
+                .ToListAsync();
             return serviceResponse;
         }
 
