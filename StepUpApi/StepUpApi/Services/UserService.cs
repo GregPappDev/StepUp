@@ -113,6 +113,8 @@ namespace StepUpApi.Services
 
             var token = new JwtSecurityToken(
                 claims: claims,
+                issuer: _configuration.GetSection("AppSettings:Issuer").Value,
+                audience: _configuration.GetSection("AppSettings:Audience").Value,
                 expires: DateTime.Now.AddHours(1),
                 signingCredentials: creds);
 

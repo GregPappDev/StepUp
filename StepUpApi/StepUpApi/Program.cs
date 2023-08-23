@@ -50,20 +50,28 @@ builder.Services.AddTransient<IExaminationTypeService, ExaminationTypeService>()
 builder.Services.AddTransient<IUserService, UserService>();
 
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
+            ValidIssuer = builder.Configuration["AppSettings:Issuer"],
+            ValidAudience = builder.Configuration["AppSettings:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Token"]!)),
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidAudience = builder.Configuration["AppSettings:Audience"],
-            ValidIssuer = builder.Configuration["AppSettings:Issuer"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Token"]))
+            
         };
     });
+
+builder.Services.AddAuthentication();
 
 var app = builder.Build();
 
@@ -89,6 +97,8 @@ using (var serviceScope = app.Services.CreateScope())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
