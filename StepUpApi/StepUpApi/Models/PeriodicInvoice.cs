@@ -8,4 +8,5 @@ public class PeriodicInvoice
     public int PaymentDeadline { get; set; }
     public string InvoiceNumber { get; set; } = string.Empty;
     public Customer? Customer { get; set; }
+    public bool IsDeleted { get; set; } = false;
 }
