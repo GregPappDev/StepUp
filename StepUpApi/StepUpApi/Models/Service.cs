@@ -7,4 +7,5 @@ public class Service
     public int Rate { get; set; }
     public bool IsCurrentRate { get; set; }
     public Customer? Customer { get; set; }
+    public bool IsDeleted { get; set; } = false;
 }

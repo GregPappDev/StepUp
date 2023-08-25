@@ -23,4 +23,5 @@ public class Appointment
     public DateTime NextExamination { get; set; }
     public string InvoiceNumber { get; set; } = string.Empty;
     public ICollection<User> Users { get; set; } = new List<User>();
+    public bool IsDeleted { get; set; } = false;
 }

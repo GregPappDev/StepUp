@@ -20,4 +20,5 @@ public class User
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     [JsonIgnore]
     public ICollection<AppointmentLog> AppointmentLogs { get; set; } = new List<AppointmentLog>();
+    public bool IsDeleted { get; set; } = false;
 }

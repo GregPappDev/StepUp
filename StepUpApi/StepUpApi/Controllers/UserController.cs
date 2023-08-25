@@ -26,7 +26,7 @@ namespace StepUpApi.Controllers
             return Ok(await _service.GetAll());
         }
 
-        [Authorize (Roles = "nurse")]
+        [Authorize (Roles = "admin")]
         [HttpPost("[action]")]
         public async Task<ActionResult<ServiceResponse<User>>> RegisterUser(CreateUserDto userDto)
         {

@@ -10,4 +10,5 @@ public class ExaminationType
     public string Type { get; set; } = string.Empty;
     [JsonIgnore]
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+    public bool IsDeleted { get; set; } = false;
 }
