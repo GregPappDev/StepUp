@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using StepUpApi.DTOs.ExaminationType;
 using StepUpApi.Models;
 using StepUpApi.Services.Interfaces;
+using System.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace StepUpApi.Controllers
 {
-    
+    [Authorize(Roles = "admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class ExaminationTypeController : ControllerBase
@@ -40,14 +42,14 @@ namespace StepUpApi.Controllers
             return Ok(await _service.Create(type));
         }
 
-        // PUT api/<ExaminationTypeController>/5
+        
         [HttpPut("{id}")]
         public async Task<ActionResult<ServiceResponse<ExaminationType>>> Put(Guid id, [FromBody] UpdateExaminationTypeDto value)
         {
             return Ok(await _service.Update(id, value));
         }
 
-        // DELETE api/<ExaminationTypeController>/5
+        
         [HttpDelete("{id}")]
         public void Delete(Guid id)
         {
