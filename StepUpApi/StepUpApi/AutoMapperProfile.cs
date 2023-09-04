@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using StepUpApi.DTOs.ExaminationType;
+using StepUpApi.DTOs.PeriodicInvoice;
 using StepUpApi.DTOs.Role;
 using StepUpApi.Models;
 
@@ -11,6 +12,7 @@ namespace StepUpApi
         {
             CreateMap<UpdateExaminationTypeDto, ExaminationType>();
             CreateMap<UpdateRoleDto, Role>();
+            CreateMap<CreatePeriodicInvoiceDto, PeriodicInvoice>();
         }
     }
 }
