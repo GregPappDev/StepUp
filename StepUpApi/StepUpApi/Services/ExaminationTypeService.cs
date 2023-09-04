@@ -20,8 +20,21 @@ namespace StepUpApi.Services
 
         public async Task<ServiceResponse<IEnumerable<ExaminationType>>> GetAll()
         {
-            var serviceResponse = new ServiceResponse<IEnumerable<ExaminationType>>();
-            serviceResponse.Data = await _context.ExaminationTypes.ToListAsync();
+            var serviceResponse = new ServiceResponse<IEnumerable<ExaminationType>>
+            {
+                Data = await _context.ExaminationTypes.ToListAsync()
+            };
+            return serviceResponse;
+        }
+        
+        public async Task<ServiceResponse<IEnumerable<ExaminationType>>> GetNotDeleted()
+        {
+            var serviceResponse = new ServiceResponse<IEnumerable<ExaminationType>>
+            {
+                Data = await _context.ExaminationTypes
+                    .Where(t => t.IsDeleted == false)
+                    .ToListAsync()
+            };
             return serviceResponse;
         }
 
@@ -80,10 +93,10 @@ namespace StepUpApi.Services
                 return serviceResponse;
             };
 
-            _context.ExaminationTypes.Remove(serviceResponse.Data);
+            var examinationType = serviceResponse.Data;
+            examinationType.IsDeleted = true;
+            _context.ExaminationTypes.Update(examinationType);
             await _context.SaveChangesAsync();
-
-            serviceResponse.Data = null;
 
             return serviceResponse;
         }
