@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using StepUpApi.DTOs.ExaminationType;
+using StepUpApi.DTOs.Location;
 using StepUpApi.DTOs.Owner;
 using StepUpApi.DTOs.PeriodicInvoice;
 using StepUpApi.DTOs.Role;
@@ -17,6 +18,7 @@ namespace StepUpApi
             CreateMap<CreatePeriodicInvoiceDto, PeriodicInvoice>();
             CreateMap<UpdateOwnerDto, Owner>();
             CreateMap<UpdateServiceDto, Service>();
+            CreateMap<UpdateLocationDto, Location>();
         }
     }
 }

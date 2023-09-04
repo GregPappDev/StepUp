@@ -53,6 +53,7 @@ builder.Services.AddTransient<IRoleService, RoleService>();
 builder.Services.AddTransient<IPeriodicInvoice, PeriodicInvoiceService>();
 builder.Services.AddTransient<IOwnerService, OwnerService>();
 builder.Services.AddTransient<IServiceService, ServiceService>();
+builder.Services.AddTransient<ILocationService, LocationService>();
 
 
 builder.Services.AddAuthentication(x =>
