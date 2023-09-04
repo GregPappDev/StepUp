@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using StepUpApi.DTOs.EmployeeType;
 using StepUpApi.DTOs.ExaminationType;
 using StepUpApi.DTOs.Location;
 using StepUpApi.DTOs.Owner;
@@ -19,6 +20,7 @@ namespace StepUpApi
             CreateMap<UpdateOwnerDto, Owner>();
             CreateMap<UpdateServiceDto, Service>();
             CreateMap<UpdateLocationDto, Location>();
+            CreateMap<UpdateEmployeeTypeDto, EmployeeType>();
         }
     }
 }
