@@ -27,6 +27,12 @@ namespace StepUpApi.Controllers
         {
             return Ok(await _service.GetAll());
         }
+        
+        [HttpGet("[action]")]
+        public async Task<ActionResult<ServiceResponse<IEnumerable<ExaminationType>>>> GetNotDeleted()
+        {
+            return Ok(await _service.GetNotDeleted());
+        }
 
         
         [HttpGet("{id}")]
