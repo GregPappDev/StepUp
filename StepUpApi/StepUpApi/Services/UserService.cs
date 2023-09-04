@@ -26,10 +26,24 @@ namespace StepUpApi.Services
 
         public async Task<ServiceResponse<IEnumerable<User>>> GetAll()
         {
-            var serviceResponse = new ServiceResponse<IEnumerable<User>>();
-            serviceResponse.Data = await _context.Users
-                .Include(u => u.Roles)
-                .ToListAsync();
+            var serviceResponse = new ServiceResponse<IEnumerable<User>>
+            {
+                Data = await _context.Users
+                    .Include(u => u.Roles)
+                    .ToListAsync()
+            };
+            return serviceResponse;
+        }
+        
+        public async Task<ServiceResponse<IEnumerable<User>>> GetNotDeleted()
+        {
+            var serviceResponse = new ServiceResponse<IEnumerable<User>>
+            {
+                Data = await _context.Users
+                    .Include(u => u.Roles)
+                    .Where(t => t.IsDeleted == false)
+                    .ToListAsync()
+            };
             return serviceResponse;
         }
 
@@ -82,8 +96,31 @@ namespace StepUpApi.Services
             serviceResponse.Data = Token;
             return serviceResponse;
         }
+        
+        public async Task<ServiceResponse<User>> GetById(Guid id)
+        {
+            var serviceResponse = new ServiceResponse<User>();
+            serviceResponse.Data = await _context.Users.FirstOrDefaultAsync(e => e.Id == id);
+            return serviceResponse;
+        }
 
+        public async Task<ServiceResponse<User>> Delete(Guid id)
+        {
+            var serviceResponse = await GetById(id);
+            if (serviceResponse.Data == null)
+            {
+                serviceResponse.Message = "No user found";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            };
 
+            var user = serviceResponse.Data;
+            user.IsDeleted = true;
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
+            return serviceResponse;
+        }
 
         #region
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
