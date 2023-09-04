@@ -80,10 +80,10 @@ namespace StepUpApi.Services
                 return serviceResponse;
             };
 
-            _context.ExaminationTypes.Remove(serviceResponse.Data);
+            var examinationType = serviceResponse.Data;
+            examinationType.IsDeleted = true;
+            _context.ExaminationTypes.Update(examinationType);
             await _context.SaveChangesAsync();
-
-            serviceResponse.Data = null;
 
             return serviceResponse;
         }
