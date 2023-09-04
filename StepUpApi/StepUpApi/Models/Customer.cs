@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace StepUpApi.Models;
 
@@ -25,8 +26,11 @@ public class Customer
     public int InvoicePeriod { get; set; }
     public int InvoiceAmount { get; set; }
     public int PaymentDeadline { get; set; }
+    [JsonIgnore]
     public ICollection<PeriodicInvoice> PeriodicInvoices { get; set; } = new List<PeriodicInvoice>();
+    [JsonIgnore]
     public ICollection<Service> Services { get; set; } = new List<Service>();
+    [JsonIgnore]
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     public bool IsDeleted { get; set; } = false;
 }
