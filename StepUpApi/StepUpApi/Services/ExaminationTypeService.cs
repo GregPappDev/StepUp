@@ -45,16 +45,16 @@ namespace StepUpApi.Services
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<ExaminationType>> Create(UpdateExaminationTypeDto dtoType)
+        public async Task<ServiceResponse<ExaminationType>> Create(UpdateExaminationTypeDto dto)
         {
             var serviceResponse = new ServiceResponse<ExaminationType>();
-            if (await _context.ExaminationTypes.AnyAsync(x => x.Type == dtoType.Type))
+            if (await _context.ExaminationTypes.AnyAsync(x => x.Type == dto.Type))
             {
                 serviceResponse.Data = null;
                 return serviceResponse;
             }
 
-            var newType = _mapper.Map<ExaminationType>(dtoType);
+            var newType = _mapper.Map<ExaminationType>(dto);
 
             _context.ExaminationTypes.Add(newType);
             await _context.SaveChangesAsync();
