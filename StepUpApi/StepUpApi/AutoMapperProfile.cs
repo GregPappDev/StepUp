@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using StepUpApi.DTOs.ExaminationType;
+using StepUpApi.DTOs.Role;
 using StepUpApi.Models;
 
 namespace StepUpApi
@@ -9,6 +10,7 @@ namespace StepUpApi
         public AutoMapperProfile()
         {
             CreateMap<UpdateExaminationTypeDto, ExaminationType>();
+            CreateMap<UpdateRoleDto, Role>();
         }
     }
 }
