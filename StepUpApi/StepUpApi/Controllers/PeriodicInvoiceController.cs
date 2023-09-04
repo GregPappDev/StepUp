@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StepUpApi.DTOs.PeriodicInvoice;
 using StepUpApi.Models;
-using StepUpApi.Services;
+using StepUpApi.Services.Interfaces;
 
 namespace StepUpApi.Controllers
 {
@@ -14,9 +9,9 @@ namespace StepUpApi.Controllers
     [ApiController]
     public class PeriodicInvoiceController : ControllerBase
     {
-        private readonly PeriodicInvoiceService _service;
+        private readonly IPeriodicInvoice _service;
 
-        public PeriodicInvoiceController(PeriodicInvoiceService service)
+        public PeriodicInvoiceController(IPeriodicInvoice service)
         {
             _service = service;
         }
