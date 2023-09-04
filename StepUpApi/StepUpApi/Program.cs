@@ -7,6 +7,7 @@ using StepUpApi.Data.Seed;
 using StepUpApi.Services;
 using StepUpApi.Services.Interfaces;
 using System.Text;
+using StepUpApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +50,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddTransient<IExaminationTypeService, ExaminationTypeService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IRoleService, RoleService>();
+builder.Services.AddTransient<IPeriodicInvoice, PeriodicInvoiceService>();
 
 
 builder.Services.AddAuthentication(x =>
