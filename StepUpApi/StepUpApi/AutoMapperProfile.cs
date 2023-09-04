@@ -3,6 +3,7 @@ using StepUpApi.DTOs.ExaminationType;
 using StepUpApi.DTOs.Owner;
 using StepUpApi.DTOs.PeriodicInvoice;
 using StepUpApi.DTOs.Role;
+using StepUpApi.DTOs.Service;
 using StepUpApi.Models;
 
 namespace StepUpApi
@@ -15,6 +16,7 @@ namespace StepUpApi
             CreateMap<UpdateRoleDto, Role>();
             CreateMap<CreatePeriodicInvoiceDto, PeriodicInvoice>();
             CreateMap<UpdateOwnerDto, Owner>();
+            CreateMap<UpdateServiceDto, Service>();
         }
     }
 }
