@@ -1,14 +1,13 @@
 ﻿using System.Text.Json.Serialization;
+using StepUpApi.Models;
 
-namespace StepUpApi.Models;
+namespace StepUpApi.DTOs.Service;
 
-public class Service
+public class UpdateServiceDto
 {
-    public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public int Rate { get; set; }
     public bool IsCurrentRate { get; set; }
     [JsonIgnore]
     public Customer? Customer { get; set; }
-    public bool IsDeleted { get; set; } = false;
 }
