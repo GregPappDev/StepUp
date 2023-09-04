@@ -48,6 +48,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddTransient<IExaminationTypeService, ExaminationTypeService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IRoleService, RoleService>();
 
 
 builder.Services.AddAuthentication(x =>
