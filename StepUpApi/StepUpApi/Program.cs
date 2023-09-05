@@ -55,6 +55,7 @@ builder.Services.AddTransient<IOwnerService, OwnerService>();
 builder.Services.AddTransient<IServiceService, ServiceService>();
 builder.Services.AddTransient<ILocationService, LocationService>();
 builder.Services.AddTransient<IEmployeeTypeService, EmployeeTypeService>();
+builder.Services.AddTransient<IContactPersonService, ContactPersonService>();
 
 
 builder.Services.AddAuthentication(x =>

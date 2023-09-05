@@ -6,6 +6,7 @@ using StepUpApi.DTOs.Owner;
 using StepUpApi.DTOs.PeriodicInvoice;
 using StepUpApi.DTOs.Role;
 using StepUpApi.DTOs.Service;
+using StepUpApi.DTOs.ContactPerson;
 using StepUpApi.Models;
 
 namespace StepUpApi
@@ -21,6 +22,7 @@ namespace StepUpApi
             CreateMap<UpdateServiceDto, Service>();
             CreateMap<UpdateLocationDto, Location>();
             CreateMap<UpdateEmployeeTypeDto, EmployeeType>();
+            CreateMap<UpdateContactPersonDto, ContactPerson>();
         }
     }
 }
