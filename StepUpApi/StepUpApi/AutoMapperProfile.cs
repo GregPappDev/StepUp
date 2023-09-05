@@ -8,6 +8,7 @@ using StepUpApi.DTOs.Role;
 using StepUpApi.DTOs.Service;
 using StepUpApi.DTOs.ContactPerson;
 using StepUpApi.Models;
+using StepUpApi.DTOs.ContactDetails;
 
 namespace StepUpApi
 {
@@ -23,6 +24,7 @@ namespace StepUpApi
             CreateMap<UpdateLocationDto, Location>();
             CreateMap<UpdateEmployeeTypeDto, EmployeeType>();
             CreateMap<UpdateContactPersonDto, ContactPerson>();
+            CreateMap<UpdateContactDetailsDto, ContactDetails>();
         }
     }
 }
