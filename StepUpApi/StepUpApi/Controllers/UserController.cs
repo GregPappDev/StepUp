@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StepUpApi.DTOs.User;
+using StepUpApi.DTOs.UserDto;
 using StepUpApi.Models;
 using StepUpApi.Services.Interfaces;
 

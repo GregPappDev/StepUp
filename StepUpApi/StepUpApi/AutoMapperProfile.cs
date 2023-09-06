@@ -9,6 +9,7 @@ using StepUpApi.DTOs.Service;
 using StepUpApi.DTOs.ContactPerson;
 using StepUpApi.Models;
 using StepUpApi.DTOs.ContactDetails;
+using StepUpApi.DTOs.AppointmentLog;
 
 namespace StepUpApi
 {
@@ -25,6 +26,8 @@ namespace StepUpApi
             CreateMap<UpdateEmployeeTypeDto, EmployeeType>();
             CreateMap<UpdateContactPersonDto, ContactPerson>();
             CreateMap<UpdateContactDetailsDto, ContactDetails>();
+            CreateMap<UpdateAppointmentLogDto, AppointmentLog>();
+            CreateMap<CreateAppointmentLogDto, AppointmentLog>();
         }
     }
 }
