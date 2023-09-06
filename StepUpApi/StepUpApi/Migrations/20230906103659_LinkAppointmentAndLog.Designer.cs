@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StepUpApi.Data;
 
@@ -11,9 +12,11 @@ using StepUpApi.Data;
 namespace StepUpApi.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    partial class ApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230906103659_LinkAppointmentAndLog")]
+    partial class LinkAppointmentAndLog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,9 +106,6 @@ namespace StepUpApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AppointmentLogId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Comment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -152,9 +152,6 @@ namespace StepUpApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AppointmentLogId")
-                        .IsUnique();
-
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("LocationId");
@@ -171,10 +168,16 @@ namespace StepUpApi.Migrations
                     b.Property<DateTime>("AccessTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("AppointmentId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId")
+                        .IsUnique();
 
                     b.ToTable("AppointmentLog");
                 });
@@ -601,12 +604,6 @@ namespace StepUpApi.Migrations
 
             modelBuilder.Entity("StepUpApi.Models.Appointment", b =>
                 {
-                    b.HasOne("StepUpApi.Models.AppointmentLog", "Log")
-                        .WithOne("Appointment")
-                        .HasForeignKey("StepUpApi.Models.Appointment", "AppointmentLogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("StepUpApi.Models.Customer", "Customer")
                         .WithMany("Appointments")
                         .HasForeignKey("CustomerId");
@@ -620,8 +617,17 @@ namespace StepUpApi.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Location");
+                });
 
-                    b.Navigation("Log");
+            modelBuilder.Entity("StepUpApi.Models.AppointmentLog", b =>
+                {
+                    b.HasOne("StepUpApi.Models.Appointment", "Appointment")
+                        .WithOne("Log")
+                        .HasForeignKey("StepUpApi.Models.AppointmentLog", "AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
                 });
 
             modelBuilder.Entity("StepUpApi.Models.ContactDetails", b =>
@@ -675,9 +681,9 @@ namespace StepUpApi.Migrations
                     b.Navigation("EmployeeType");
                 });
 
-            modelBuilder.Entity("StepUpApi.Models.AppointmentLog", b =>
+            modelBuilder.Entity("StepUpApi.Models.Appointment", b =>
                 {
-                    b.Navigation("Appointment");
+                    b.Navigation("Log");
                 });
 
             modelBuilder.Entity("StepUpApi.Models.Customer", b =>

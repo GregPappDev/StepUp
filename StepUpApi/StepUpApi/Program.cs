@@ -7,7 +7,7 @@ using StepUpApi.Data.Seed;
 using StepUpApi.Services;
 using StepUpApi.Services.Interfaces;
 using System.Text;
-using StepUpApi.Models;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +57,7 @@ builder.Services.AddTransient<ILocationService, LocationService>();
 builder.Services.AddTransient<IEmployeeTypeService, EmployeeTypeService>();
 builder.Services.AddTransient<IContactPersonService, ContactPersonService>();
 builder.Services.AddTransient<IContactDetailsService, ContactDetailsService>();
+builder.Services.AddTransient<IAppointmentLogService, AppointmentLogService>();
 
 
 builder.Services.AddAuthentication(x =>

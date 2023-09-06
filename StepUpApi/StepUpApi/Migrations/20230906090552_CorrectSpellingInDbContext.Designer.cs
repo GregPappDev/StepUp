@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StepUpApi.Data;
 
@@ -11,9 +12,11 @@ using StepUpApi.Data;
 namespace StepUpApi.Migrations
 {
     [DbContext(typeof(ApiDbContext))]
-    partial class ApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230906090552_CorrectSpellingInDbContext")]
+    partial class CorrectSpellingInDbContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,9 +106,6 @@ namespace StepUpApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AppointmentLogId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Comment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -151,9 +151,6 @@ namespace StepUpApi.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppointmentLogId")
-                        .IsUnique();
 
                     b.HasIndex("CustomerId");
 
@@ -601,12 +598,6 @@ namespace StepUpApi.Migrations
 
             modelBuilder.Entity("StepUpApi.Models.Appointment", b =>
                 {
-                    b.HasOne("StepUpApi.Models.AppointmentLog", "Log")
-                        .WithOne("Appointment")
-                        .HasForeignKey("StepUpApi.Models.Appointment", "AppointmentLogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("StepUpApi.Models.Customer", "Customer")
                         .WithMany("Appointments")
                         .HasForeignKey("CustomerId");
@@ -620,8 +611,6 @@ namespace StepUpApi.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Location");
-
-                    b.Navigation("Log");
                 });
 
             modelBuilder.Entity("StepUpApi.Models.ContactDetails", b =>
@@ -673,11 +662,6 @@ namespace StepUpApi.Migrations
                         .HasForeignKey("EmployeeTypeId");
 
                     b.Navigation("EmployeeType");
-                });
-
-            modelBuilder.Entity("StepUpApi.Models.AppointmentLog", b =>
-                {
-                    b.Navigation("Appointment");
                 });
 
             modelBuilder.Entity("StepUpApi.Models.Customer", b =>
