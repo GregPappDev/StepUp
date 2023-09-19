@@ -1,6 +1,10 @@
 import { useState } from "react";
+import { Routes, Route, Link, useNavigate, Navigate } from "react-router-dom";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/electron-vite.animate.svg";
+import HomeView from "./components/Home/HomeView";
+import AppointmentView from "./components/Appointment/AppointmentView";
+import "bootstrap/dist/css/bootstrap.css";
 //import "./App.css";
 
 function App() {
@@ -8,27 +12,10 @@ function App() {
 
   return (
     <>
-      <div class="container">
-        <a href="https://electron-vite.github.io" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <button class="btn btn-primary">Button</button>
+      <Routes>
+        <Route path="/appointment" element={<AppointmentView />} />
+        <Route path="/" element={<HomeView />} />
+      </Routes>
     </>
   );
 }
