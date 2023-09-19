@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, Menu } from "electron";
 import path from "node:path";
 
 // The built directory structure
@@ -34,6 +34,9 @@ function createWindow() {
     win?.webContents.send("main-process-message", new Date().toLocaleString());
   });
 
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);
   } else {
@@ -41,6 +44,38 @@ function createWindow() {
     win.loadFile(path.join(process.env.DIST, "index.html"));
   }
 }
+
+const template: Electron.MenuItemConstructorOptions[] = [
+  {
+    label: "File",
+    submenu: [{ role: "minimize" }, { role: "quit" }],
+  },
+  {
+    label: "Előjegyzés",
+    submenu: [
+      { label: "Mai előjegyzés" },
+      { label: "Időpont foglalása" },
+      { type: "separator" },
+      { label: "Időpontok generálása" },
+      { label: "Egyedi időpont beszúrása" },
+      { label: "Páciens időpont keresése" },
+      { type: "separator" },
+      { label: "Partner előgyezéseinek listázása" },
+    ],
+  },
+  {
+    label: "Partnerek",
+    submenu: [{ label: "Partner keresése" }, { label: "Új partner rögítése" }],
+  },
+  {
+    label: "Számlázás",
+    submenu: [
+      { label: "Számlázásra váró vizsgálatok" },
+      { label: "Időszakos számlák listázása" },
+    ],
+  },
+  { label: "Admin" },
+];
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
