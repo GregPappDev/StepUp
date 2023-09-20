@@ -6,6 +6,6 @@ namespace StepUpApi.DTOs.AppointmentLog
     {
         public ICollection<User> Users { get; set; } = new List<User>();
         public Guid AppointmentId { get; set; }
-        public Appointment? Appointment { get; set; }
+        public Models.Appointment? Appointment { get; set; }
     }
 }

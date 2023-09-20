@@ -1,4 +1,5 @@
-﻿using StepUpApi.DTOs.ExaminationType;
+﻿using StepUpApi.DTOs.Appointment;
+using StepUpApi.DTOs.ExaminationType;
 using StepUpApi.Models;
 
 namespace StepUpApi.Services.Interfaces
@@ -8,7 +9,7 @@ namespace StepUpApi.Services.Interfaces
         Task<ServiceResponse<IQueryable<Appointment>>> GetAll();
         Task<ServiceResponse<IQueryable<Appointment>>> GetNotDeleted();
         Task<ServiceResponse<Appointment>> GetById(Guid id);
-        Task<ServiceResponse<Appointment>> Create(UpdateExaminationTypeDto dto);
+        Task<ServiceResponse<Appointment>> Create(CreateAppointmentDto dto);
         Task<ServiceResponse<Appointment>> Update(Guid id, UpdateExaminationTypeDto updatedData);
         Task<ServiceResponse<Appointment>> Delete(Guid id);
     }
