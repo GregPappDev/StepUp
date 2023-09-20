@@ -15,15 +15,15 @@ public class Appointment
     public string PatientName { get; set; } = string.Empty;
     public ICollection<ExaminationType> ExaminationTypes { get; set; } = new List<ExaminationType>();
     public string Comment { get; set; } = string.Empty;
-    public DateTime PatientDateOfBirth { get; set; }
+    public DateTime? PatientDateOfBirth { get; set; }
     public string PatientJobTitle { get; set; } = string.Empty;
-    public char PatientCategory { get; set; }
-    public bool HasAttended { get; set; }
-    public ResultType Result { get; set; }
-    public DateTime NextExamination { get; set; }
+    public char? PatientCategory { get; set; }
+    public bool? HasAttended { get; set; }
+    public ResultType? Result { get; set; }
+    public DateTime? NextExamination { get; set; }
     public string InvoiceNumber { get; set; } = string.Empty;
     public ICollection<User> PersonnelAttending { get; set; } = new List<User>();
-    public Guid AppointmentLogId { get; set; }
-    public AppointmentLog? Log { get; set; }
+    //public Guid AppointmentLogId { get; set; }
+    public List<AppointmentLog> Log { get; set; } = new List<AppointmentLog> { };
     public bool IsDeleted { get; set; } = false;
 }

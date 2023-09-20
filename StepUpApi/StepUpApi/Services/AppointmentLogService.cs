@@ -25,7 +25,7 @@ namespace StepUpApi.Services
             {
                 Data = await _context.AppointmentLog
                     .Include(x => x.Users)
-                    .Include(x => x.Appointment)
+                    //.Include(x => x.Appointment)
                     .ToListAsync()
             };
             return serviceResponse;
@@ -36,7 +36,7 @@ namespace StepUpApi.Services
             var serviceResponse = new ServiceResponse<AppointmentLog>();
             serviceResponse.Data = await _context.AppointmentLog
                 .Include(x => x.Users)
-                .Include(x => x.Appointment)
+                //.Include(x => x.Appointment)
                 .FirstOrDefaultAsync(x => x.Id == id);
             return serviceResponse;
         }
