@@ -8,6 +8,7 @@ using StepUpApi.Services;
 using StepUpApi.Services.Interfaces;
 using System.Text;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -48,6 +49,15 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddTransient<IExaminationTypeService, ExaminationTypeService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IRoleService, RoleService>();
+builder.Services.AddTransient<IPeriodicInvoice, PeriodicInvoiceService>();
+builder.Services.AddTransient<IOwnerService, OwnerService>();
+builder.Services.AddTransient<IServiceService, ServiceService>();
+builder.Services.AddTransient<ILocationService, LocationService>();
+builder.Services.AddTransient<IEmployeeTypeService, EmployeeTypeService>();
+builder.Services.AddTransient<IContactPersonService, ContactPersonService>();
+builder.Services.AddTransient<IContactDetailsService, ContactDetailsService>();
+builder.Services.AddTransient<IAppointmentLogService, AppointmentLogService>();
 
 
 builder.Services.AddAuthentication(x =>

@@ -32,7 +32,7 @@ namespace StepUpApi.Services
             var serviceResponse = new ServiceResponse<IEnumerable<ExaminationType>>
             {
                 Data = await _context.ExaminationTypes
-                    .Where(t => t.IsDeleted == false)
+                    .Where(x => x.IsDeleted == false)
                     .ToListAsync()
             };
             return serviceResponse;
@@ -41,20 +41,20 @@ namespace StepUpApi.Services
         public async Task<ServiceResponse<ExaminationType>> GetById(Guid id)
         {
             var serviceResponse = new ServiceResponse<ExaminationType>();
-            serviceResponse.Data = await _context.ExaminationTypes.FirstOrDefaultAsync(e => e.Id == id);
+            serviceResponse.Data = await _context.ExaminationTypes.FirstOrDefaultAsync(x => x.Id == id);
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<ExaminationType>> Create(UpdateExaminationTypeDto dtoType)
+        public async Task<ServiceResponse<ExaminationType>> Create(UpdateExaminationTypeDto dto)
         {
             var serviceResponse = new ServiceResponse<ExaminationType>();
-            if (await _context.ExaminationTypes.AnyAsync(type => type.Type == dtoType.Type))
+            if (await _context.ExaminationTypes.AnyAsync(x => x.Type == dto.Type))
             {
                 serviceResponse.Data = null;
                 return serviceResponse;
             }
 
-            var newType = _mapper.Map<ExaminationType>(dtoType);
+            var newType = _mapper.Map<ExaminationType>(dto);
 
             _context.ExaminationTypes.Add(newType);
             await _context.SaveChangesAsync();
@@ -67,7 +67,7 @@ namespace StepUpApi.Services
         {
             var serviceResponse = new ServiceResponse<ExaminationType>();
 
-            var examinationType = await _context.ExaminationTypes.FirstOrDefaultAsync(e => e.Id == id);
+            var examinationType = await _context.ExaminationTypes.FirstOrDefaultAsync(x => x.Id == id);
             if (examinationType == null) 
             {
                 serviceResponse.Data = null;

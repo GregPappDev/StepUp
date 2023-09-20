@@ -1,6 +1,15 @@
 ﻿using AutoMapper;
+using StepUpApi.DTOs.EmployeeType;
 using StepUpApi.DTOs.ExaminationType;
+using StepUpApi.DTOs.Location;
+using StepUpApi.DTOs.Owner;
+using StepUpApi.DTOs.PeriodicInvoice;
+using StepUpApi.DTOs.Role;
+using StepUpApi.DTOs.Service;
+using StepUpApi.DTOs.ContactPerson;
 using StepUpApi.Models;
+using StepUpApi.DTOs.ContactDetails;
+using StepUpApi.DTOs.AppointmentLog;
 
 namespace StepUpApi
 {
@@ -9,6 +18,16 @@ namespace StepUpApi
         public AutoMapperProfile()
         {
             CreateMap<UpdateExaminationTypeDto, ExaminationType>();
+            CreateMap<UpdateRoleDto, Role>();
+            CreateMap<CreatePeriodicInvoiceDto, PeriodicInvoice>();
+            CreateMap<UpdateOwnerDto, Owner>();
+            CreateMap<UpdateServiceDto, Service>();
+            CreateMap<UpdateLocationDto, Location>();
+            CreateMap<UpdateEmployeeTypeDto, EmployeeType>();
+            CreateMap<UpdateContactPersonDto, ContactPerson>();
+            CreateMap<UpdateContactDetailsDto, ContactDetails>();
+            CreateMap<UpdateAppointmentLogDto, AppointmentLog>();
+            CreateMap<CreateAppointmentLogDto, AppointmentLog>();
         }
     }
 }

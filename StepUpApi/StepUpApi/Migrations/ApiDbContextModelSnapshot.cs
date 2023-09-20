@@ -103,6 +103,9 @@ namespace StepUpApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("AppointmentLogId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Comment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -149,6 +152,9 @@ namespace StepUpApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppointmentLogId")
+                        .IsUnique();
+
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("LocationId");
@@ -170,7 +176,7 @@ namespace StepUpApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AppointmentLos");
+                    b.ToTable("AppointmentLog");
                 });
 
             modelBuilder.Entity("StepUpApi.Models.ContactDetails", b =>
@@ -595,6 +601,12 @@ namespace StepUpApi.Migrations
 
             modelBuilder.Entity("StepUpApi.Models.Appointment", b =>
                 {
+                    b.HasOne("StepUpApi.Models.AppointmentLog", "Log")
+                        .WithOne("Appointment")
+                        .HasForeignKey("StepUpApi.Models.Appointment", "AppointmentLogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("StepUpApi.Models.Customer", "Customer")
                         .WithMany("Appointments")
                         .HasForeignKey("CustomerId");
@@ -608,6 +620,8 @@ namespace StepUpApi.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Location");
+
+                    b.Navigation("Log");
                 });
 
             modelBuilder.Entity("StepUpApi.Models.ContactDetails", b =>
@@ -659,6 +673,11 @@ namespace StepUpApi.Migrations
                         .HasForeignKey("EmployeeTypeId");
 
                     b.Navigation("EmployeeType");
+                });
+
+            modelBuilder.Entity("StepUpApi.Models.AppointmentLog", b =>
+                {
+                    b.Navigation("Appointment");
                 });
 
             modelBuilder.Entity("StepUpApi.Models.Customer", b =>

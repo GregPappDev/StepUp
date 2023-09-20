@@ -6,7 +6,7 @@ namespace StepUpApi.Data;
 public class ApiDbContext : DbContext
 {
     public DbSet<Appointment> Appointments { get; set; }
-    public DbSet<AppointmentLog> AppointmentLos { get; set; }
+    public DbSet<AppointmentLog> AppointmentLog { get; set; }
     public DbSet<ContactDetails> ContactDetails { get; set; }
     public DbSet<ContactPerson> ContactPersons { get; set; }
     public DbSet<Customer> Customers { get; set; }

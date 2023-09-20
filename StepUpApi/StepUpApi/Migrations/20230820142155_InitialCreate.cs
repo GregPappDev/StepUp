@@ -12,7 +12,7 @@ namespace StepUpApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AppointmentLos",
+                name: "AppointmentLog",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -20,7 +20,7 @@ namespace StepUpApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppointmentLos", x => x.Id);
+                    table.PrimaryKey("PK_AppointmentLog", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,9 +169,9 @@ namespace StepUpApi.Migrations
                 {
                     table.PrimaryKey("PK_AppointmentLogUser", x => new { x.AppointmentLogsId, x.UsersId });
                     table.ForeignKey(
-                        name: "FK_AppointmentLogUser_AppointmentLos_AppointmentLogsId",
+                        name: "FK_AppointmentLogUser_AppointmentLog_AppointmentLogsId",
                         column: x => x.AppointmentLogsId,
-                        principalTable: "AppointmentLos",
+                        principalTable: "AppointmentLog",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -475,7 +475,7 @@ namespace StepUpApi.Migrations
                 name: "ExaminationTypes");
 
             migrationBuilder.DropTable(
-                name: "AppointmentLos");
+                name: "AppointmentLog");
 
             migrationBuilder.DropTable(
                 name: "Appointments");

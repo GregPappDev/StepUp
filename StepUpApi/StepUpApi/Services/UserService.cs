@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using StepUpApi.Data;
-using StepUpApi.DTOs.User;
+using StepUpApi.DTOs.UserDto;
 using StepUpApi.Models;
 using StepUpApi.Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
