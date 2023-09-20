@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace StepUpApi.Models
 {
-    public class Location
+    public class Surgery
     {
         public Guid Id { get; set; }
         [Required]

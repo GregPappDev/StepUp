@@ -13,7 +13,7 @@ public class Customer
     public DateTime StartOfContract { get; set; }
     public bool ContractOnFile { get; set; }
     public bool Vip { get; set; }
-    public Location? Location { get; set; }
+    public Surgery? Location { get; set; }
     public ICollection<ContactPerson> ContactPersons { get; set; } = new List<ContactPerson>();
     public ICollection<ContactDetails> ContactDetailsCollection { get; set; } = new List<ContactDetails>();
     public int HeadCountA { get; set; }

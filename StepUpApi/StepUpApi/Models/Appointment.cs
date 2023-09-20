@@ -10,7 +10,7 @@ public class Appointment
     [Required]
     public DateTime DateTime { get; set; }
     [Required]
-    public Location? Location { get; set; }
+    public Surgery? Surgery { get; set; }
     public Customer? Customer { get; set; }
     public string PatientName { get; set; } = string.Empty;
     public ICollection<ExaminationType> ExaminationTypes { get; set; } = new List<ExaminationType>();
@@ -22,7 +22,7 @@ public class Appointment
     public ResultType Result { get; set; }
     public DateTime NextExamination { get; set; }
     public string InvoiceNumber { get; set; } = string.Empty;
-    public ICollection<User> Users { get; set; } = new List<User>();
+    public ICollection<User> PersonnelAttending { get; set; } = new List<User>();
     public Guid AppointmentLogId { get; set; }
     public AppointmentLog? Log { get; set; }
     public bool IsDeleted { get; set; } = false;
