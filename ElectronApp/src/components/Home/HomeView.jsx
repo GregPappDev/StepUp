@@ -1,8 +1,10 @@
 import React from "react";
 import logo from "/prevencio_logo.JPG?url";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const HomeView = () => {
+  const navigate = useNavigate();
+
   return (
     <div
       style={{

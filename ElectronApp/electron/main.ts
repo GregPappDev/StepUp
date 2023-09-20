@@ -25,6 +25,7 @@ function createWindow() {
     width: 1920,
     height: 1080,
     webPreferences: {
+      nodeIntegration: false,
       preload: path.join(__dirname, "preload.js"),
     },
   });
@@ -48,13 +49,22 @@ function createWindow() {
 const template: Electron.MenuItemConstructorOptions[] = [
   {
     label: "File",
-    submenu: [{ role: "minimize" }, { role: "quit" }],
+    submenu: [
+      {
+        label: "Kezdőoldal",
+        click: () => win?.webContents.send("navi", "/"),
+      },
+      { role: "minimize" },
+      { role: "quit" },
+    ],
   },
   {
     label: "Előjegyzés",
     submenu: [
-      { label: "Mai előjegyzés" },
-      { label: "Időpont foglalása" },
+      {
+        label: "Előjegyzés",
+        click: () => win?.webContents.send("navi", "/appointment"),
+      },
       { type: "separator" },
       { label: "Időpontok generálása" },
       { label: "Egyedi időpont beszúrása" },
@@ -74,7 +84,10 @@ const template: Electron.MenuItemConstructorOptions[] = [
       { label: "Időszakos számlák listázása" },
     ],
   },
-  { label: "Admin" },
+  {
+    label: "Admin",
+    submenu: [{ role: "toggleDevTools" }],
+  },
 ];
 
 // Quit when all windows are closed, except on macOS. There, it's common
