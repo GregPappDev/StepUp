@@ -1,12 +1,19 @@
 import { contextBridge, ipcRenderer } from "electron";
 
-let pageNavigation = {
-  navigation: (
-    callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void
-  ) => ipcRenderer.on("navigation", callback),
+let indexBridge = {
+  fetchData: async () => {
+    var result = await ipcRenderer.invoke("fetchData");
+    console.log(`result: ${result}`);
+    return result;
+  },
+  fetchApi: async () => {
+    var result = await ipcRenderer.invoke("fetchApi");
+    console.log(`API: ${result}`);
+    return result;
+  },
 };
 
-contextBridge.exposeInMainWorld("pageNavigation", pageNavigation);
+contextBridge.exposeInMainWorld("indexBridge", indexBridge);
 
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld("ipcRenderer", withPrototype(ipcRenderer));

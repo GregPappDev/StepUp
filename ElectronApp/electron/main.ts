@@ -1,5 +1,6 @@
-import { app, BrowserWindow, Menu } from "electron";
+import { app, BrowserWindow, ipcMain, Menu } from "electron";
 import path from "node:path";
+import fetch from "node-fetch";
 
 // The built directory structure
 //
@@ -110,6 +111,21 @@ app.on("activate", () => {
 });
 
 app.whenReady().then(createWindow);
+
+ipcMain.handle("fetchData", async () => {
+  const response = await fetch("https://www.boredapi.com/api/activity/");
+  const body = await response.text();
+  console.log(body);
+  return body;
+});
+
+ipcMain.handle("fetchApi", async () => {
+  process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
+  const response = await fetch("https://localhost:7076/api/Appointment");
+  const body = await response.text();
+  console.log(body);
+  return body;
+});
 
 function pageNavigation(path: string) {
   win?.webContents.send("navi", path);

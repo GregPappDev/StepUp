@@ -1,6 +1,24 @@
 import React from "react";
+import { useEffect } from "react";
+
+async function getData() {
+  console.log("before fetching");
+  let response = await window.indexBridge.fetchData();
+  console.log(`fetchData: ${response}`);
+}
+
+async function getApi() {
+  console.log("before API fetching");
+  let response = await window.indexBridge.fetchApi();
+  console.log(`API Data: ${response}`);
+}
 
 const AppointmentView = () => {
+  useEffect(() => {
+    getData();
+    getApi();
+  }, []);
+
   return (
     <div class="container-fluid">
       <h1 class="mt-5 mb-2 text-primary">Előjegyzés</h1>
