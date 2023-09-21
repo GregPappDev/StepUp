@@ -26,6 +26,7 @@ function createWindow() {
     height: 1080,
     webPreferences: {
       nodeIntegration: false,
+      contextIsolation: true,
       preload: path.join(__dirname, "preload.js"),
     },
   });
@@ -52,7 +53,7 @@ const template: Electron.MenuItemConstructorOptions[] = [
     submenu: [
       {
         label: "Kezdőoldal",
-        click: () => win?.webContents.send("navi", "/"),
+        click: () => pageNavigation("/"),
       },
       { role: "minimize" },
       { role: "quit" },
@@ -63,7 +64,7 @@ const template: Electron.MenuItemConstructorOptions[] = [
     submenu: [
       {
         label: "Előjegyzés",
-        click: () => win?.webContents.send("navi", "/appointment"),
+        click: () => pageNavigation("/appointment"),
       },
       { type: "separator" },
       { label: "Időpontok generálása" },
@@ -109,3 +110,7 @@ app.on("activate", () => {
 });
 
 app.whenReady().then(createWindow);
+
+function pageNavigation(path: string) {
+  win?.webContents.send("navi", path);
+}
