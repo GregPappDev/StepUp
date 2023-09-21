@@ -17,7 +17,7 @@ namespace StepUpApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<IEnumerable<AppointmentLog>>>> GetAll()
+        public async Task<ActionResult<IEnumerable<AppointmentLog>>> GetAll()
         {
             return Ok(await _service.GetAll());
         }

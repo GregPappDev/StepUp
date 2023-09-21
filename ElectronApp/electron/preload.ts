@@ -1,14 +1,14 @@
 import { contextBridge, ipcRenderer } from "electron";
 
-let indexBridge = {
+const indexBridge = {
   fetchData: async () => {
-    var result = await ipcRenderer.invoke("fetchData");
-    console.log(`result: ${result}`);
+    const result = await ipcRenderer.invoke("fetchData");
+    //console.log(`result: ${result}`);
     return result;
   },
   fetchApi: async () => {
-    var result = await ipcRenderer.invoke("fetchApi");
-    console.log(`API: ${result}`);
+    const result = await ipcRenderer.invoke("fetchApi");
+    //console.log(`API: ${result}`);
     return result;
   },
 };

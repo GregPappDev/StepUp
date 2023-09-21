@@ -19,15 +19,14 @@ namespace StepUpApi.Services
             _mapper = mapper;
         }
 
-        public async Task<ServiceResponse<IEnumerable<Appointment>>> GetAll()
+        public async Task<IEnumerable<Appointment>> GetAll()
         {
-            var serviceResponse = new ServiceResponse<IEnumerable<Appointment>>
-            {
-                Data = await _context.Appointments
+            var response = await _context.Appointments
                     .Include(x => x.Surgery)
-                    .ToListAsync()
-            };
-            return serviceResponse;
+                    .Include(x => x.PersonnelAttending)
+                    .ToListAsync();
+            
+            return response;
         }
 
         public Task<ServiceResponse<Appointment>> Create(CreateAppointmentDto dto)

@@ -1,32 +1,26 @@
 import React from "react";
-import { useEffect } from "react";
-
-async function getData() {
-  console.log("before fetching");
-  let response = await window.indexBridge.fetchData();
-  console.log(`fetchData: ${response}`);
-}
-
-async function getApi() {
-  console.log("before API fetching");
-  let response = await window.indexBridge.fetchApi();
-  console.log(`API Data: ${response}`);
-}
+import { useEffect, useState } from "react";
 
 const AppointmentView = () => {
+  const [appointments, setAppointments] = useState("");
+
   useEffect(() => {
-    getData();
+    async function getApi() {
+      let response = JSON.parse(await window.indexBridge.fetchApi());
+      setAppointments(response);
+    }
+
     getApi();
   }, []);
 
   return (
-    <div class="container-fluid">
-      <h1 class="mt-5 mb-2 text-primary">Előjegyzés</h1>
-      <div class="container-fluid bg-light text-dark">
-        <p class="p-3 mb-2 ">Időpontok szűrése</p>
+    <div className="container-fluid">
+      <h1 className="mt-5 mb-2 text-primary">Előjegyzés</h1>
+      <div className="container-fluid bg-light text-dark">
+        <p className="p-3 mb-2 ">Időpontok szűrése</p>
       </div>
 
-      <table class="table table-hover table-responsive">
+      <table className="table table-hover table-responsive">
         <thead>
           <tr>
             <th>Rendelő</th>
@@ -41,50 +35,22 @@ const AppointmentView = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Eger</td>
-            <td>2023.09.20</td>
-            <td>10:00</td>
-            <td>Random Kft.</td>
-            <td>Pécsi István</td>
-            <td>előzetes</td>
-            <td>06 30 1234567</td>
-            <td>Dr. Orvos Antal</td>
-            <td>Kovács Ilona</td>
-          </tr>
-          <tr>
-            <td>Eger</td>
-            <td>2023.09.20</td>
-            <td>10:10</td>
-            <td>Teszt Kft.</td>
-            <td>Nagy Antal</td>
-            <td>előzetes</td>
-            <td>06 30 1234567</td>
-            <td>Dr. Orvos Antal</td>
-            <td>Kovács Ilona</td>
-          </tr>
-          <tr>
-            <td>Füzesabony</td>
-            <td>2023.09.21</td>
-            <td>10:00</td>
-            <td>Apple Inc.</td>
-            <td>Joe Johnson</td>
-            <td>időszakos</td>
-            <td>06 30 1234567</td>
-            <td>Dr. Kovács Attila</td>
-            <td>Nagy Nóra</td>
-          </tr>
-          <tr>
-            <td>Füzesabony</td>
-            <td>2023.09.21</td>
-            <td>10:10</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>Dr. Kovács Attila</td>
-            <td>Nagy Nóra</td>
-          </tr>
+          {appointments &&
+            appointments.map((appointment) => {
+              return (
+                <tr key={appointment.id}>
+                  <td>{appointment.surgery.name}</td>
+                  <td>{appointment.dateTime.slice(0, 10)}</td>
+                  <td>{appointment.dateTime.slice(12, 16)}</td>
+                  <td>{appointment.customer}</td>
+                  <td>{appointment.patientName}</td>
+                  <td>{appointment.examinationTypes}</td>
+                  <td>{appointment.comment}</td>
+                  <td>{appointment.personnelAttending[0].Name}</td>
+                  <td>{appointment.personnelAttending[1].Name}</td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </div>

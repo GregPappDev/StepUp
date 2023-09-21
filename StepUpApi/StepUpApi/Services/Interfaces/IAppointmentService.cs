@@ -6,7 +6,7 @@ namespace StepUpApi.Services.Interfaces
 {
     public interface IAppointmentService
     {
-        Task<ServiceResponse<IEnumerable<Appointment>>> GetAll();
+        Task<IEnumerable<Appointment>> GetAll();
         Task<ServiceResponse<IEnumerable<Appointment>>> GetNotDeleted();
         Task<ServiceResponse<Appointment>> GetById(Guid id);
         Task<ServiceResponse<Appointment>> Create(CreateAppointmentDto dto);

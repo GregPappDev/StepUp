@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, Link, useNavigate, Navigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import HomeView from "./components/Home/HomeView";
 import AppointmentView from "./components/Appointment/AppointmentView";
 
 function App() {
-  const [count, setCount] = useState(0);
   const [path, setPath] = useState("/");
 
   const navigate = useNavigate();
 
-  console.log("App");
-
   useEffect(() => {
     navigate(path);
-    console.log("useEffect");
   }, [path]);
 
   window.ipcRenderer.once("navi", (_event, message) => {

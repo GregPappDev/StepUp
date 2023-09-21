@@ -40,6 +40,8 @@ function createWindow() {
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 
+  win.webContents.openDevTools();
+
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);
   } else {
@@ -56,6 +58,7 @@ const template: Electron.MenuItemConstructorOptions[] = [
         label: "Kezdőoldal",
         click: () => pageNavigation("/"),
       },
+      { label: "Frissítés", click: () => app.relaunch() },
       { role: "minimize" },
       { role: "quit" },
     ],
@@ -123,7 +126,6 @@ ipcMain.handle("fetchApi", async () => {
   process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
   const response = await fetch("https://localhost:7076/api/Appointment");
   const body = await response.text();
-  console.log(body);
   return body;
 });
 
