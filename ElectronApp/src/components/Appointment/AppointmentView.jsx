@@ -2,16 +2,52 @@ import React from "react";
 import { useEffect, useState } from "react";
 
 const AppointmentView = () => {
-  const [appointments, setAppointments] = useState("");
+  const [appointments, setAppointments] = useState([]);
+  const [originalList, setOriginalList] = useState([]);
 
+  // GET data from WEB API
   useEffect(() => {
     async function getApi() {
       let response = JSON.parse(await window.indexBridge.fetchApi());
-      setAppointments(response);
+      setOriginalList(response);
+      const filteredList = response.filter((appointment) => {
+        return appointment.surgery.name === dropDown;
+      });
+
+      setAppointments(filteredList);
     }
 
     getApi();
   }, []);
+
+  // Populate dropdown menu
+
+  const options = [
+    { value: "", text: "" },
+    { value: "Eger", text: "Eger" },
+    { value: "Füzesabony", text: "Füzesabony" },
+    { value: "Kápolna", text: "Kápolna" },
+    { value: "Sirok", text: "Sirok" },
+  ];
+
+  const [dropDown, setDropDown] = useState(options[0].value);
+
+  const dropdownChange = (event) => {
+    console.log(event.target.value);
+    setDropDown(event.target.value);
+    console.log(`original: ${originalList}`);
+  };
+
+  useEffect(() => {
+    console.log(`dropdown: ${dropDown}`);
+    console.log(`appointments: ${appointments}`);
+    const filteredList = originalList.filter((appointment) => {
+      return appointment.surgery.name === dropDown;
+    });
+    console.log(filteredList);
+
+    setAppointments(filteredList);
+  }, [dropDown]);
 
   return (
     <div className="container-fluid">
@@ -25,12 +61,16 @@ const AppointmentView = () => {
             <p className="m-1">Rendelő</p>
           </div>
           <div className="col-md-2">
-            <select style={{ border: "none" }}>
-              <option></option>
-              <option>Eger</option>
-              <option>Füzesabony</option>
-              <option>Kápolna</option>
-              <option>Sirok</option>
+            <select
+              value={dropDown}
+              onChange={dropdownChange}
+              style={{ border: "none" }}
+            >
+              {options.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.text}
+                </option>
+              ))}
             </select>
           </div>
           <div className="col-md-1">
@@ -63,7 +103,7 @@ const AppointmentView = () => {
                 <tr key={appointment.id}>
                   <td>{appointment.surgery.name}</td>
                   <td>{appointment.dateTime.slice(0, 10)}</td>
-                  <td>{appointment.dateTime.slice(12, 16)}</td>
+                  <td>{appointment.dateTime.slice(11, 16)}</td>
                   <td>{appointment.customer}</td>
                   <td>{appointment.patientName}</td>
                   <td>{appointment.examinationTypes}</td>
