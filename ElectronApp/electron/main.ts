@@ -58,7 +58,7 @@ const template: Electron.MenuItemConstructorOptions[] = [
         label: "Kezdőoldal",
         click: () => pageNavigation("/"),
       },
-      { label: "Frissítés", click: () => app.relaunch() },
+      { label: "Frissítés", click: () => win?.reload() },
       { role: "minimize" },
       { role: "quit" },
     ],

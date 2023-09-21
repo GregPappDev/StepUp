@@ -13,7 +13,7 @@ const HomeView = () => {
     >
       <div className="row mw-100">
         <div className="column text-center">
-          <img src={logo} class="img-fluid" alt="logo" />
+          <img src={logo} className="img-fluid" alt="logo" />
         </div>
       </div>
     </div>

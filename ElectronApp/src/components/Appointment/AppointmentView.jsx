@@ -16,8 +16,30 @@ const AppointmentView = () => {
   return (
     <div className="container-fluid">
       <h1 className="mt-5 mb-2 text-primary">Előjegyzés</h1>
-      <div className="container-fluid bg-light text-dark">
-        <p className="p-3 mb-2 ">Időpontok szűrése</p>
+      <div
+        className="container-fluid bg-gradient text-dark"
+        style={{ background: "rgb(178, 235, 241  )" }}
+      >
+        <div className="row align-items-center">
+          <div className="col-md-1">
+            <p className="m-1">Rendelő</p>
+          </div>
+          <div className="col-md-2">
+            <select style={{ border: "none" }}>
+              <option></option>
+              <option>Eger</option>
+              <option>Füzesabony</option>
+              <option>Kápolna</option>
+              <option>Sirok</option>
+            </select>
+          </div>
+          <div className="col-md-1">
+            <p className="m-1">Dátum</p>
+          </div>
+          <div className="col-md-1">
+            <input className="m-1" type="date" style={{ border: "none" }} />
+          </div>
+        </div>
       </div>
 
       <table className="table table-hover table-responsive">
