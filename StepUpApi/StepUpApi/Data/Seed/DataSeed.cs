@@ -101,19 +101,21 @@ namespace StepUpApi.Data.Seed
 
             List<User> users = CreateUsers();
 
+            var startDate = new DateTime(2023,9,22,10,0,0);
+
             var appointments = new List<Appointment>()
 
             {
-                new Appointment() { DateTime = DateTime.Now, Surgery = Eger, PersonnelAttending = users },
-                new Appointment() { DateTime = DateTime.Now.AddMinutes(10), Surgery = Eger, PersonnelAttending = users },
-                new Appointment() { DateTime = DateTime.Now.AddMinutes(20), Surgery = Eger, PersonnelAttending = users },
-                new Appointment() { DateTime = DateTime.Now.AddMinutes(30), Surgery = Eger, PersonnelAttending = users },
-                new Appointment() { DateTime = DateTime.Now.AddMinutes(40), Surgery = Eger, PersonnelAttending = users },
-                new Appointment() { DateTime = DateTime.Now.AddDays(1), Surgery = Abony, PersonnelAttending = users },
-                new Appointment() { DateTime = DateTime.Now.AddDays(1).AddMinutes(10), Surgery = Abony, PersonnelAttending = users },
-                new Appointment() { DateTime = DateTime.Now.AddDays(1).AddMinutes(20), Surgery = Abony, PersonnelAttending = users },
-                new Appointment() { DateTime = DateTime.Now.AddDays(1).AddMinutes(30), Surgery = Abony, PersonnelAttending = users },
-                new Appointment() { DateTime = DateTime.Now.AddDays(1).AddMinutes(40), Surgery = Abony, PersonnelAttending = users },
+                new Appointment() { DateTime = startDate, Surgery = Eger, PersonnelAttending = users },
+                new Appointment() { DateTime = startDate.AddMinutes(10), Surgery = Eger, PersonnelAttending = users },
+                new Appointment() { DateTime = startDate.AddMinutes(20), Surgery = Eger, PersonnelAttending = users },
+                new Appointment() { DateTime = startDate.AddMinutes(30), Surgery = Eger, PersonnelAttending = users },
+                new Appointment() { DateTime = startDate.AddMinutes(40), Surgery = Eger, PersonnelAttending = users },
+                new Appointment() { DateTime = startDate.AddDays(1), Surgery = Abony, PersonnelAttending = users },
+                new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(10), Surgery = Abony, PersonnelAttending = users },
+                new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(20), Surgery = Abony, PersonnelAttending = users },
+                new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(30), Surgery = Abony, PersonnelAttending = users },
+                new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(40), Surgery = Abony, PersonnelAttending = users },
             };
 
             _context.Appointments.AddRange(appointments);
