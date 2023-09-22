@@ -73,9 +73,11 @@ const template: Electron.MenuItemConstructorOptions[] = [
       { type: "separator" },
       { label: "Időpontok generálása" },
       { label: "Egyedi időpont beszúrása" },
-      { label: "Páciens időpont keresése" },
       { type: "separator" },
+      { label: "Páciens időpont keresése" },
       { label: "Partner előgyezéseinek listázása" },
+      { type: "separator" },
+      { label: '"Nem jelent meg" statisztika' },
     ],
   },
   {
