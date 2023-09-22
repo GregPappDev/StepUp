@@ -31,6 +31,7 @@ const AppointmentView = () => {
   ];
 
   const [dropDown, setDropDown] = useState(options[0].value);
+  const [date, setDate] = useState("");
 
   const dropdownChange = (event) => {
     console.log(event.target.value);
@@ -38,16 +39,24 @@ const AppointmentView = () => {
     console.log(`original: ${originalList}`);
   };
 
+  const dateChange = (event) => {
+    console.log(event.target.value);
+    setDate(event.target.value);
+  };
+
   useEffect(() => {
     console.log(`dropdown: ${dropDown}`);
     console.log(`appointments: ${appointments}`);
     const filteredList = originalList.filter((appointment) => {
-      return appointment.surgery.name === dropDown;
+      return (
+        appointment.surgery.name === dropDown &&
+        appointment.dateTime.slice(0, 10) === date
+      );
     });
     console.log(filteredList);
 
     setAppointments(filteredList);
-  }, [dropDown]);
+  }, [dropDown, date]);
 
   return (
     <div className="container-fluid">
@@ -77,7 +86,12 @@ const AppointmentView = () => {
             <p className="m-1">Dátum</p>
           </div>
           <div className="col-md-1">
-            <input className="m-1" type="date" style={{ border: "none" }} />
+            <input
+              onChange={dateChange}
+              className="m-1"
+              type="date"
+              style={{ border: "none" }}
+            />
           </div>
         </div>
       </div>
