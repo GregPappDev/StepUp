@@ -22,7 +22,7 @@ namespace StepUpApi
             CreateMap<CreatePeriodicInvoiceDto, PeriodicInvoice>();
             CreateMap<UpdateOwnerDto, Owner>();
             CreateMap<UpdateServiceDto, Service>();
-            CreateMap<UpdateLocationDto, Location>();
+            CreateMap<UpdateSurgeryDto, Surgery>();
             CreateMap<UpdateEmployeeTypeDto, EmployeeType>();
             CreateMap<UpdateContactPersonDto, ContactPerson>();
             CreateMap<UpdateContactDetailsDto, ContactDetails>();

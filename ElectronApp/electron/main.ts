@@ -1,5 +1,6 @@
-import { app, BrowserWindow, Menu } from "electron";
+import { app, BrowserWindow, ipcMain, Menu } from "electron";
 import path from "node:path";
+import fetch from "node-fetch";
 
 // The built directory structure
 //
@@ -26,6 +27,7 @@ function createWindow() {
     height: 1080,
     webPreferences: {
       nodeIntegration: false,
+      contextIsolation: true,
       preload: path.join(__dirname, "preload.js"),
     },
   });
@@ -37,6 +39,8 @@ function createWindow() {
 
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
+
+  //win.webContents.openDevTools();
 
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);
@@ -52,8 +56,9 @@ const template: Electron.MenuItemConstructorOptions[] = [
     submenu: [
       {
         label: "Kezdőoldal",
-        click: () => win?.webContents.send("navi", "/"),
+        click: () => pageNavigation("/"),
       },
+      { label: "Frissítés", click: () => win?.reload() },
       { role: "minimize" },
       { role: "quit" },
     ],
@@ -63,14 +68,16 @@ const template: Electron.MenuItemConstructorOptions[] = [
     submenu: [
       {
         label: "Előjegyzés",
-        click: () => win?.webContents.send("navi", "/appointment"),
+        click: () => pageNavigation("/appointment"),
       },
       { type: "separator" },
       { label: "Időpontok generálása" },
       { label: "Egyedi időpont beszúrása" },
-      { label: "Páciens időpont keresése" },
       { type: "separator" },
+      { label: "Páciens időpont keresése" },
       { label: "Partner előgyezéseinek listázása" },
+      { type: "separator" },
+      { label: '"Nem jelent meg" statisztika' },
     ],
   },
   {
@@ -109,3 +116,21 @@ app.on("activate", () => {
 });
 
 app.whenReady().then(createWindow);
+
+ipcMain.handle("fetchData", async () => {
+  const response = await fetch("https://www.boredapi.com/api/activity/");
+  const body = await response.text();
+  console.log(body);
+  return body;
+});
+
+ipcMain.handle("fetchApi", async () => {
+  process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
+  const response = await fetch("https://localhost:7076/api/Appointment");
+  const body = await response.text();
+  return body;
+});
+
+function pageNavigation(path: string) {
+  win?.webContents.send("navi", path);
+}
