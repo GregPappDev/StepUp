@@ -118,7 +118,13 @@ const AppointmentView = () => {
                   <td>{appointment.surgery.name}</td>
                   <td>{appointment.dateTime.slice(0, 10)}</td>
                   <td>{appointment.dateTime.slice(11, 16)}</td>
-                  <td>{appointment.customer}</td>
+
+                  {appointment.customer === null ? (
+                    <td></td>
+                  ) : (
+                    <td>{appointment.customer.name}</td>
+                  )}
+
                   <td>{appointment.patientName}</td>
                   <td>{appointment.examinationTypes}</td>
                   <td>{appointment.comment}</td>

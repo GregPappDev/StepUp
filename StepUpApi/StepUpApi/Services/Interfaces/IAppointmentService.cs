@@ -12,5 +12,6 @@ namespace StepUpApi.Services.Interfaces
         Task<ServiceResponse<Appointment>> Create(CreateAppointmentDto dto);
         Task<ServiceResponse<Appointment>> Update(Guid id, UpdateExaminationTypeDto updatedData);
         Task<ServiceResponse<Appointment>> Delete(Guid id);
+        Task<ServiceResponse<IEnumerable<Appointment>>> BookAppointment(List<BookAppointmentDto> dto);
     }
 }

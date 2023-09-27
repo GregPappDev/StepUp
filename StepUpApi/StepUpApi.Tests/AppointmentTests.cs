@@ -1,8 +1,11 @@
 using AutoMapper;
+using Humanizer;
 using Microsoft.Identity.Client;
 using NSubstitute;
 using StepUpApi.Data;
+using StepUpApi.DTOs.Appointment;
 using StepUpApi.Services;
+using System.Collections.Generic;
 
 namespace StepUpApi.Tests
 {
@@ -18,11 +21,18 @@ namespace StepUpApi.Tests
         }
 
         [Fact]
-        public void Test1()
+        public void BookAppointment_BookTwoWhenTwoAreAvailable()
         {
             // Arrange
+            var appointments = new List<BookAppointmentDto>()
+            {
+                new BookAppointmentDto{ CustomerID = "Apple Inc.", }
+            }
+            var NumberOfAppointmentsToBook = 2;
 
             // Act
+            var response = _sut.BookAppointment(appointments)
+            
 
             // Assert
 

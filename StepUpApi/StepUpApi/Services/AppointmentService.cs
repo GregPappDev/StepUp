@@ -24,6 +24,7 @@ namespace StepUpApi.Services
             var response = await _context.Appointments
                     .Include(x => x.Surgery)
                     .Include(x => x.PersonnelAttending)
+                    .Include(x => x.Customer)
                     .ToListAsync();
             
             return response;
@@ -51,6 +52,11 @@ namespace StepUpApi.Services
         }
 
         public Task<ServiceResponse<Appointment>> Update(Guid id, UpdateExaminationTypeDto updatedData)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ServiceResponse<IEnumerable<Appointment>>> BookAppointment(List<BookAppointmentDto> dto)
         {
             throw new NotImplementedException();
         }
