@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StepUpApi.DTOs.Appointment;
 using StepUpApi.Models;
 using StepUpApi.Services.Interfaces;
 
@@ -17,7 +18,7 @@ namespace StepUpApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AppointmentLog>>> GetAll()
+        public async Task<ActionResult<IEnumerable<AppointmentDto>>> GetAll()
         {
             return Ok(await _service.GetAll());
         }
