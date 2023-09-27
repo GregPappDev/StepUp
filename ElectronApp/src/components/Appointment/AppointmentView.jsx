@@ -126,8 +126,10 @@ const AppointmentView = () => {
                   )}
 
                   <td>{appointment.patientName}</td>
+                  {/*should iterate through examintaion type list*/}
                   <td>{appointment.examinationTypes}</td>
                   <td>{appointment.comment}</td>
+                  {/*should find appropriate person based on employee type*/}
                   <td>{appointment.personnelAttending[0].name}</td>
                   <td>{appointment.personnelAttending[1].name}</td>
                 </tr>
