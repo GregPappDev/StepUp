@@ -24,14 +24,9 @@ namespace StepUpApi.Tests
         public void BookAppointment_BookTwoWhenTwoAreAvailable()
         {
             // Arrange
-            var appointments = new List<BookAppointmentDto>()
-            {
-                new BookAppointmentDto{ CustomerID = "Apple Inc.", }
-            }
-            var NumberOfAppointmentsToBook = 2;
-
+            
+           
             // Act
-            var response = _sut.BookAppointment(appointments)
             
 
             // Assert
