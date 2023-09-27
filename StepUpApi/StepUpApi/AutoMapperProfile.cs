@@ -10,6 +10,8 @@ using StepUpApi.DTOs.ContactPerson;
 using StepUpApi.Models;
 using StepUpApi.DTOs.ContactDetails;
 using StepUpApi.DTOs.AppointmentLog;
+using StepUpApi.DTOs.Appointment;
+using StepUpApi.DTOs.UserDto;
 
 namespace StepUpApi
 {
@@ -28,6 +30,8 @@ namespace StepUpApi
             CreateMap<UpdateContactDetailsDto, ContactDetails>();
             CreateMap<UpdateAppointmentLogDto, AppointmentLog>();
             CreateMap<CreateAppointmentLogDto, AppointmentLog>();
+            CreateMap<Appointment, AppointmentDto>();
+            CreateMap<User, UserDto>();
         }
     }
 }

@@ -49,7 +49,7 @@ const AppointmentView = () => {
     console.log(`appointments: ${appointments}`);
     const filteredList = originalList.filter((appointment) => {
       return (
-        appointment.surgery.name === dropDown &&
+        appointment.surgeryName === dropDown &&
         appointment.dateTime.slice(0, 10) === date
       );
     });
@@ -115,15 +115,23 @@ const AppointmentView = () => {
             appointments.map((appointment) => {
               return (
                 <tr key={appointment.id}>
-                  <td>{appointment.surgery.name}</td>
+                  <td>{appointment.surgeryName}</td>
                   <td>{appointment.dateTime.slice(0, 10)}</td>
                   <td>{appointment.dateTime.slice(11, 16)}</td>
-                  <td>{appointment.customer}</td>
+
+                  {appointment.customerName === null ? (
+                    <td></td>
+                  ) : (
+                    <td>{appointment.customerName}</td>
+                  )}
+
                   <td>{appointment.patientName}</td>
+                  {/*should iterate through examintaion type list*/}
                   <td>{appointment.examinationTypes}</td>
                   <td>{appointment.comment}</td>
-                  <td>{appointment.personnelAttending[0].Name}</td>
-                  <td>{appointment.personnelAttending[1].Name}</td>
+                  {/*should find appropriate person based on employee type*/}
+                  <td>{appointment.personnelAttending[0].name}</td>
+                  <td>{appointment.personnelAttending[1].name}</td>
                 </tr>
               );
             })}
