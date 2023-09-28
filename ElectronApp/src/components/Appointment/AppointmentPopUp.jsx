@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-//import Popup from "reactjs-popup";
-import "reactjs-popup/dist/index.css";
 import Modal from "react-bootstrap/Modal";
 
 const AppointmentPopUp = (appointment) => {
@@ -25,13 +23,6 @@ const AppointmentPopUp = (appointment) => {
   };
 
   return (
-    /*     <Popup
-      trigger={<button className="btn btn-primary m-1"> Foglalás</button>}
-      modal
-      nested
-    >
-      <div className="header"> Részletek {surgery.surgery}</div>
-    </Popup> */
     <div className="container">
       <button
         className="btn btn-primary"
