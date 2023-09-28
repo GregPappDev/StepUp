@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import AppointmentPopUp from "./AppointmentPopUp";
 
 const AppointmentView = () => {
   const [appointments, setAppointments] = useState([]);
@@ -11,7 +12,7 @@ const AppointmentView = () => {
       let response = JSON.parse(await window.indexBridge.fetchApi());
       setOriginalList(response);
       const filteredList = response.filter((appointment) => {
-        return appointment.surgery.name === dropDown;
+        return appointment.surgeryName === dropDown;
       });
 
       setAppointments(filteredList);
@@ -61,6 +62,7 @@ const AppointmentView = () => {
   return (
     <div className="container-fluid">
       <h1 className="mt-5 mb-2 text-primary">Előjegyzés</h1>
+
       <div
         className="container-fluid bg-gradient text-dark"
         style={{ background: "rgb(178, 235, 241  )" }}
@@ -114,8 +116,8 @@ const AppointmentView = () => {
           {appointments &&
             appointments.map((appointment) => {
               return (
-                <tr key={appointment.id}>
-                  <td>{appointment.surgeryName}</td>
+                <tr key={appointment.id} onClick={() => console.log("clickkk")}>
+                  <td>{appointment.surgeryName} </td>
                   <td>{appointment.dateTime.slice(0, 10)}</td>
                   <td>{appointment.dateTime.slice(11, 16)}</td>
 
@@ -132,6 +134,7 @@ const AppointmentView = () => {
                   {/*should find appropriate person based on employee type*/}
                   <td>{appointment.personnelAttending[0].name}</td>
                   <td>{appointment.personnelAttending[1].name}</td>
+                  <AppointmentPopUp surgery={appointment.surgeryName} />
                 </tr>
               );
             })}
