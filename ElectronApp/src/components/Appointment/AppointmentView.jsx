@@ -117,7 +117,9 @@ const AppointmentView = () => {
             appointments.map((appointment) => {
               return (
                 <tr key={appointment.id} onClick={() => console.log("clickkk")}>
-                  <td>{appointment.surgeryName} </td>
+                  <td>
+                    <AppointmentPopUp appointment={appointment} />
+                  </td>
                   <td>{appointment.dateTime.slice(0, 10)}</td>
                   <td>{appointment.dateTime.slice(11, 16)}</td>
 
@@ -134,7 +136,6 @@ const AppointmentView = () => {
                   {/*should find appropriate person based on employee type*/}
                   <td>{appointment.personnelAttending[0].name}</td>
                   <td>{appointment.personnelAttending[1].name}</td>
-                  <AppointmentPopUp surgery={appointment.surgeryName} />
                 </tr>
               );
             })}
