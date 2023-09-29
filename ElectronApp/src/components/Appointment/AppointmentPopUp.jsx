@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import Collapse from "react-bootstrap/Collapse";
+import Button from "react-bootstrap/Button";
 
 const AppointmentPopUp = (appointment) => {
   const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
 
   console.log(` Ez jön át: ${appointment.appointment.id}`);
   const handleShow = () => setShow(true);
@@ -36,7 +39,9 @@ const AppointmentPopUp = (appointment) => {
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
-        fullscreen={true}
+        scrollable={true}
+
+        // fullscreen={true}
       >
         <Modal.Header closeButton>
           <Modal.Title style={{ width: "100vw" }}>
@@ -61,7 +66,54 @@ const AppointmentPopUp = (appointment) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>még több részlet</p>
+          <div className="container">
+            <form className="mb-5">
+              <label for="customer" className="form-label">
+                Partner
+              </label>
+              <input type="text" className="form-control mb-2" id="customer" />
+              <label for="patient" className="form-label">
+                Dolgozó
+              </label>
+              <input type="text" className="form-control mb-2" id="patient" />
+              <label for="job" className="form-label">
+                Munkakör
+              </label>
+              <input type="text" className="form-control mb-2" id="job" />
+              <label for="examinationType" className="form-label">
+                Vizsgálat típusa
+              </label>
+              <input
+                type="text"
+                className="form-control mb-2"
+                id="examinationType"
+              />
+              <label for="comment" className="form-label">
+                Megjegyzés
+              </label>
+              <input type="text" className="form-control mb-2" id="comment" />
+              <button className="btn btn-secondary">Mentés</button>
+            </form>
+          </div>
+
+          <hr />
+          <div className="bg-light ">
+            <Button
+              onClick={() => setOpen(!open)}
+              aria-controls="example-collapse-text"
+              aria-expanded={open}
+            >
+              Vizsgálat rögzítése
+            </Button>
+            <Collapse in={open}>
+              <div id="example-collapse-text" className="bg-light">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life
+                accusamus terry richardson ad squid. Nihil anim keffiyeh
+                helvetica, craft beer labore wes anderson cred nesciunt sapiente
+                ea proident.
+              </div>
+            </Collapse>
+          </div>
         </Modal.Body>
         <Modal.Footer>footer</Modal.Footer>
       </Modal>
