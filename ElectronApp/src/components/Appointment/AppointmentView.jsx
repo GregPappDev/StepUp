@@ -63,10 +63,7 @@ const AppointmentView = () => {
     <div className="container-fluid">
       <h1 className="mt-5 mb-2 text-primary">Előjegyzés</h1>
 
-      <div
-        className="container-fluid bg-gradient text-dark"
-        style={{ background: "rgb(178, 235, 241  )" }}
-      >
+      <div className="container-fluid p-1 mb-2 bg-light text-dark">
         <div className="row align-items-center">
           <div className="col-md-1">
             <p className="m-1">Rendelő</p>

@@ -43,16 +43,18 @@ const AppointmentPopUp = (appointment) => {
 
         // fullscreen={true}
       >
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title style={{ width: "100vw" }}>
             <div className="container">
               <div className="row">
                 <div className="col ">
-                  <h2>{appointment.appointment.surgeryName}</h2>
+                  <h3 className="bg-primary p-2" style={{ color: "white" }}>
+                    {appointment.appointment.surgeryName}
+                  </h3>
                 </div>
               </div>
               <div className="row">
-                <div className="col ">
+                <div className="col text-primary">
                   {appointment.appointment.dateTime.slice(0, 10)},{" "}
                   {weekdayCalculator(
                     appointment.appointment.dateTime.slice(0, 10)
@@ -60,7 +62,7 @@ const AppointmentPopUp = (appointment) => {
                 </div>
               </div>
               <div className="row">
-                <div className="col ">
+                <div className="col text-primary">
                   <p>{appointment.appointment.dateTime.slice(11, 16)}</p>
                 </div>
               </div>
@@ -235,7 +237,10 @@ const AppointmentPopUp = (appointment) => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <button className="btn btn-danger">Mentés</button>
+          <button className="btn btn-success">Mentés</button>
+          <button className="btn btn-danger" onClick={handleClose}>
+            Kilépés
+          </button>
         </Modal.Footer>
       </Modal>
     </div>
