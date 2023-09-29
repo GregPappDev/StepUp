@@ -47,19 +47,21 @@ const AppointmentPopUp = (appointment) => {
           <Modal.Title style={{ width: "100vw" }}>
             <div className="container">
               <div className="row">
-                <div className="col col-4">
-                  <h3>{appointment.appointment.surgeryName}</h3>
+                <div className="col ">
+                  <h2>{appointment.appointment.surgeryName}</h2>
                 </div>
-                <div className="col col-4">
-                  <h3>
-                    {appointment.appointment.dateTime.slice(0, 10)},{" "}
-                    {weekdayCalculator(
-                      appointment.appointment.dateTime.slice(0, 10)
-                    )}
-                  </h3>
+              </div>
+              <div className="row">
+                <div className="col ">
+                  {appointment.appointment.dateTime.slice(0, 10)},{" "}
+                  {weekdayCalculator(
+                    appointment.appointment.dateTime.slice(0, 10)
+                  )}
                 </div>
-                <div className="col col-4">
-                  <h3>{appointment.appointment.dateTime.slice(11, 16)}</h3>
+              </div>
+              <div className="row">
+                <div className="col ">
+                  <p>{appointment.appointment.dateTime.slice(11, 16)}</p>
                 </div>
               </div>
             </div>
@@ -68,54 +70,173 @@ const AppointmentPopUp = (appointment) => {
         <Modal.Body>
           <div className="container">
             <form className="mb-5">
-              <label for="customer" className="form-label">
-                Partner
-              </label>
-              <input type="text" className="form-control mb-2" id="customer" />
-              <label for="patient" className="form-label">
-                Dolgozó
-              </label>
-              <input type="text" className="form-control mb-2" id="patient" />
-              <label for="job" className="form-label">
-                Munkakör
-              </label>
-              <input type="text" className="form-control mb-2" id="job" />
-              <label for="examinationType" className="form-label">
-                Vizsgálat típusa
-              </label>
-              <input
-                type="text"
-                className="form-control mb-2"
-                id="examinationType"
-              />
-              <label for="comment" className="form-label">
-                Megjegyzés
-              </label>
-              <input type="text" className="form-control mb-2" id="comment" />
-              <button className="btn btn-secondary">Mentés</button>
+              <div className="form-floating">
+                <input
+                  type="text"
+                  className="form-control mb-2"
+                  id="customer"
+                />
+                <label for="customer" className="form-label">
+                  Partner
+                </label>
+              </div>
+
+              <div className="form-floating">
+                <input type="text" className="form-control mb-2" id="patient" />
+                <label for="patient" className="form-label">
+                  Dolgozó
+                </label>
+              </div>
+
+              <div className="form-floating">
+                <input type="text" className="form-control mb-2" id="job" />
+                <label for="job" className="form-label">
+                  Munkakör
+                </label>
+              </div>
+
+              <div className="form-floating">
+                <input
+                  type="text"
+                  className="form-control mb-2"
+                  id="examinationType"
+                />
+                <label for="examinationType" className="form-label">
+                  Vizsgálat típusa
+                </label>
+              </div>
+
+              <div className="form-floating">
+                <input type="text" className="form-control mb-2" id="comment" />
+                <label for="comment" className="form-label">
+                  Megjegyzés
+                </label>
+              </div>
             </form>
           </div>
 
           <hr />
-          <div className="bg-light ">
+          <div className="container bg-light ">
             <Button
               onClick={() => setOpen(!open)}
               aria-controls="example-collapse-text"
               aria-expanded={open}
+              className="mb-2"
             >
               Vizsgálat rögzítése
             </Button>
             <Collapse in={open}>
-              <div id="example-collapse-text" className="bg-light">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life
-                accusamus terry richardson ad squid. Nihil anim keffiyeh
-                helvetica, craft beer labore wes anderson cred nesciunt sapiente
-                ea proident.
+              <div id="example-collapse-text" className="bg-light pb-2">
+                <form className="mb-2 mt-2">
+                  <div className="mb-2">
+                    <input
+                      type="checkbox"
+                      className="form-check-input m-1"
+                      id="attended"
+                    />
+                    <label for="attended" className="form-check-label">
+                      Megjelent
+                    </label>
+                  </div>
+                  <div className="form-floating">
+                    <input
+                      type="text"
+                      className="form-control mb-2"
+                      id="result"
+                    />
+                    <label for="result" className="form-label">
+                      Eredmény
+                    </label>
+                  </div>
+                  <div className="form-floating">
+                    <input
+                      type="text"
+                      className="form-control mb-2"
+                      id="placeOfInvoice"
+                    />
+                    <label for="placeOfInvoice" className="form-label">
+                      Számlázás helye
+                    </label>
+                  </div>
+                  <div className="form-floating">
+                    <input
+                      type="text"
+                      className="form-control mb-2"
+                      id="invoiceNumber"
+                    />
+                    <label for="invoiceNumber" className="form-label">
+                      Számlaszám
+                    </label>
+                  </div>
+                  <div className="form-floating">
+                    <input
+                      type="textarea"
+                      className="form-control mb-2 disabled"
+                      id="invoiceComment"
+                    />
+                    <label for="invoiceComment" className="form-label">
+                      Számlázáshoz megjegyzés
+                    </label>
+                  </div>
+                  <p>Díjak</p>
+                  <div className="row">
+                    <div className="col col-3">
+                      <div className="form-floating">
+                        <input
+                          type="text"
+                          className="form-control mb-2 disabled"
+                          id="priceA"
+                        />
+                        <label for="priceA" className="form-label">
+                          A
+                        </label>
+                      </div>
+                    </div>
+                    <div className="col col-3">
+                      <div className="form-floating">
+                        <input
+                          type="text"
+                          className="form-control mb-2 disabled"
+                          id="priceB"
+                        />
+                        <label for="priceB" className="form-label">
+                          B
+                        </label>
+                      </div>
+                    </div>
+                    <div className="col col-3">
+                      <div className="form-floating">
+                        <input
+                          type="text"
+                          className="form-control mb-2 disabled"
+                          id="priceC"
+                        />
+                        <label for="priceC" className="form-label">
+                          C
+                        </label>
+                      </div>
+                    </div>
+                    <div className="col col-3">
+                      <div className="form-floating">
+                        <input
+                          type="text"
+                          className="form-control mb-2 disabled"
+                          id="priceD"
+                        />
+                        <label for="priceD" className="form-label">
+                          D
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
             </Collapse>
           </div>
         </Modal.Body>
-        <Modal.Footer>footer</Modal.Footer>
+        <Modal.Footer>
+          <button className="btn btn-danger">Mentés</button>
+        </Modal.Footer>
       </Modal>
     </div>
   );
