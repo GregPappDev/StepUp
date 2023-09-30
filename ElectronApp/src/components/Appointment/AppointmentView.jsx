@@ -67,6 +67,7 @@ const AppointmentView = () => {
           <h2 className="p-2 text-white m-0">Előjegyzés</h2>
         </div>
       </div>
+
       {/* SEARCH BAR SECTION */}
       <div className="bg-secondary">
         <div className="container-fluid  text-white">
@@ -104,6 +105,8 @@ const AppointmentView = () => {
 
         <div className="m-5 bg-white"></div>
       </div>
+
+      {/* TABLE SECTION */}
       <div className="container-fluid">
         <table className="table table-hover table-responsive ">
           <thead>

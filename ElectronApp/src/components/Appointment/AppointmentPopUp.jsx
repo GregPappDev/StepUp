@@ -115,126 +115,123 @@ const AppointmentPopUp = (appointment) => {
                   Megjegyzés
                 </label>
               </div>
-            </form>
-          </div>
-
-          <hr />
-          <div className="container bg-info pt-3">
-            <Button
-              onClick={() => setOpen(!open)}
-              aria-controls="example-collapse-text"
-              aria-expanded={open}
-              className="mb-2"
-            >
-              Vizsgálat rögzítése
-            </Button>
-            <Collapse in={open}>
-              <div id="example-collapse-text" className="pb-2">
-                <form className="mb-2 mt-2">
-                  <div className="mb-2">
-                    <input
-                      type="checkbox"
-                      className="form-check-input m-1"
-                      id="attended"
-                    />
-                    <label for="attended" className="form-check-label">
-                      Megjelent
-                    </label>
-                  </div>
-                  <div className="form-floating">
-                    <input
-                      type="text"
-                      className="form-control mb-2"
-                      id="result"
-                    />
-                    <label for="result" className="form-label">
-                      Eredmény
-                    </label>
-                  </div>
-                  <div className="form-floating">
-                    <input
-                      type="text"
-                      className="form-control mb-2"
-                      id="placeOfInvoice"
-                    />
-                    <label for="placeOfInvoice" className="form-label">
-                      Számlázás helye
-                    </label>
-                  </div>
-                  <div className="form-floating">
-                    <input
-                      type="text"
-                      className="form-control mb-2"
-                      id="invoiceNumber"
-                    />
-                    <label for="invoiceNumber" className="form-label">
-                      Számlaszám
-                    </label>
-                  </div>
-                  <div className="form-floating">
-                    <input
-                      type="textarea"
-                      className="form-control mb-2 disabled"
-                      id="invoiceComment"
-                    />
-                    <label for="invoiceComment" className="form-label">
-                      Számlázáshoz megjegyzés
-                    </label>
-                  </div>
-                  <p>Díjak</p>
-                  <div className="row">
-                    <div className="col col-3">
-                      <div className="form-floating">
-                        <input
-                          type="text"
-                          className="form-control mb-2 disabled"
-                          id="priceA"
-                        />
-                        <label for="priceA" className="form-label">
-                          A
-                        </label>
-                      </div>
+              <hr />
+              <div className="container bg-info pt-3">
+                <Button
+                  onClick={() => setOpen(!open)}
+                  aria-controls="example-collapse-text"
+                  aria-expanded={open}
+                  className="mb-2"
+                >
+                  Vizsgálat rögzítése
+                </Button>
+                <Collapse in={open}>
+                  <div id="example-collapse-text" className="pb-2">
+                    <div className="mb-2">
+                      <input
+                        type="checkbox"
+                        className="form-check-input m-1"
+                        id="attended"
+                      />
+                      <label for="attended" className="form-check-label">
+                        Megjelent
+                      </label>
                     </div>
-                    <div className="col col-3">
-                      <div className="form-floating">
-                        <input
-                          type="text"
-                          className="form-control mb-2 disabled"
-                          id="priceB"
-                        />
-                        <label for="priceB" className="form-label">
-                          B
-                        </label>
-                      </div>
+                    <div className="form-floating">
+                      <input
+                        type="text"
+                        className="form-control mb-2"
+                        id="result"
+                      />
+                      <label for="result" className="form-label">
+                        Eredmény
+                      </label>
                     </div>
-                    <div className="col col-3">
-                      <div className="form-floating">
-                        <input
-                          type="text"
-                          className="form-control mb-2 disabled"
-                          id="priceC"
-                        />
-                        <label for="priceC" className="form-label">
-                          C
-                        </label>
-                      </div>
+                    <div className="form-floating">
+                      <input
+                        type="text"
+                        className="form-control mb-2"
+                        id="placeOfInvoice"
+                      />
+                      <label for="placeOfInvoice" className="form-label">
+                        Számlázás helye
+                      </label>
                     </div>
-                    <div className="col col-3">
-                      <div className="form-floating">
-                        <input
-                          type="text"
-                          className="form-control mb-2 disabled"
-                          id="priceD"
-                        />
-                        <label for="priceD" className="form-label">
-                          D
-                        </label>
+                    <div className="form-floating">
+                      <input
+                        type="text"
+                        className="form-control mb-2"
+                        id="invoiceNumber"
+                      />
+                      <label for="invoiceNumber" className="form-label">
+                        Számlaszám
+                      </label>
+                    </div>
+                    <div className="form-floating">
+                      <input
+                        type="textarea"
+                        className="form-control mb-2 disabled"
+                        id="invoiceComment"
+                      />
+                      <label for="invoiceComment" className="form-label">
+                        Számlázáshoz megjegyzés
+                      </label>
+                    </div>
+                    <p>Díjak</p>
+                    <div className="row">
+                      <div className="col col-3">
+                        <div className="form-floating">
+                          <input
+                            type="text"
+                            className="form-control mb-2 disabled"
+                            id="priceA"
+                          />
+                          <label for="priceA" className="form-label">
+                            A
+                          </label>
+                        </div>
+                      </div>
+                      <div className="col col-3">
+                        <div className="form-floating">
+                          <input
+                            type="text"
+                            className="form-control mb-2 disabled"
+                            id="priceB"
+                          />
+                          <label for="priceB" className="form-label">
+                            B
+                          </label>
+                        </div>
+                      </div>
+                      <div className="col col-3">
+                        <div className="form-floating">
+                          <input
+                            type="text"
+                            className="form-control mb-2 disabled"
+                            id="priceC"
+                          />
+                          <label for="priceC" className="form-label">
+                            C
+                          </label>
+                        </div>
+                      </div>
+                      <div className="col col-3">
+                        <div className="form-floating">
+                          <input
+                            type="text"
+                            className="form-control mb-2 disabled"
+                            id="priceD"
+                          />
+                          <label for="priceD" className="form-label">
+                            D
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </form>
+                </Collapse>
               </div>
-            </Collapse>
+            </form>
           </div>
         </Modal.Body>
         <Modal.Footer>
