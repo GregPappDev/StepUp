@@ -159,16 +159,6 @@ const AppointmentPopUp = (appointment) => {
                     </div>
                     <div className="form-floating">
                       <input
-                        type="text"
-                        className="form-control mb-2"
-                        id="invoiceNumber"
-                      />
-                      <label for="invoiceNumber" className="form-label">
-                        Számlaszám
-                      </label>
-                    </div>
-                    <div className="form-floating">
-                      <input
                         type="textarea"
                         className="form-control mb-2 disabled"
                         id="invoiceComment"
@@ -177,6 +167,17 @@ const AppointmentPopUp = (appointment) => {
                         Számlázáshoz megjegyzés
                       </label>
                     </div>
+                    <div className="form-floating">
+                      <input
+                        type="text"
+                        className="form-control mb-2"
+                        id="invoiceNumber"
+                      />
+                      <label for="invoiceNumber" className="form-label">
+                        Számlaszám
+                      </label>
+                    </div>
+
                     <p>Díjak</p>
                     <div className="row">
                       <div className="col col-3">

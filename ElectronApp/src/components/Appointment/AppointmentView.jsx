@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import AppointmentPopUp from "./AppointmentPopUp";
+import PageTitle from "../Shared/PageTitle";
 
 const AppointmentView = () => {
   const [appointments, setAppointments] = useState([]);
@@ -62,11 +63,7 @@ const AppointmentView = () => {
   return (
     <div>
       {/* TITLE SECTION */}
-      <div className="bg-primary">
-        <div className="container-fluid">
-          <h2 className="p-2 text-white m-0">Előjegyzés</h2>
-        </div>
-      </div>
+      <PageTitle title={"Előjegyzés"} />
 
       {/* SEARCH BAR SECTION */}
       <div className="bg-secondary">

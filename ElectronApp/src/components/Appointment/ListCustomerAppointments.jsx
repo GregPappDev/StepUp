@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import PageTitle from "../Shared/PageTitle";
 
 const ListCustomerAppointments = () => {
   const options = [
@@ -17,12 +18,7 @@ const ListCustomerAppointments = () => {
 
   return (
     <div>
-      {/* TITLE SECTION */}
-      <div className="bg-primary">
-        <div className="container-fluid">
-          <h2 className="p-2 text-white m-0">Partner időpontjainak keresése</h2>
-        </div>
-      </div>
+      <PageTitle title={"Partner időpontjainak keresése"} />
 
       {/* SEARCH BAR SECTION */}
       <div className="bg-secondary">

@@ -17,7 +17,7 @@ namespace StepUpApi.Data.Seed
             CreateExaminationTypes();
             CreateRoles();
             CreateUsers();
-            CreateCustomers();
+            
             CreateAppointments();
         }
 
@@ -133,8 +133,26 @@ namespace StepUpApi.Data.Seed
            
             var customers = new List<Customer>()
             {
-                new Customer(){ Name = "Apple Inc."},
-                new Customer(){ Name = "Google Inc."}
+                new Customer(){ 
+                    Name = "Apple Inc.", 
+                    InvoiceIssuer = "iroda",
+                    BillingInfo = "készpénzes számla",
+                    Services = new List<Service>()
+                    {
+                        new Service(){Name = "D", Rate = 8000, IsCurrentRate = true},
+                        new Service(){Name = "C", Rate = 10000, IsCurrentRate = true}
+                    }
+                },
+                new Customer(){ 
+                    Name = "Google Inc.", 
+                    InvoiceIssuer = "rendelő",
+                    BillingInfo = "átutalásos számla",
+                    Services = new List<Service>()
+                    {
+                        new Service(){Name = "D", Rate = 8000, IsCurrentRate = true},
+                        new Service(){Name = "C", Rate = 10000, IsCurrentRate = true}
+                    }
+                }
             };
 
             _context.Customers.AddRange(customers);
