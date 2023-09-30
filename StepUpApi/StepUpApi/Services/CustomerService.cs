@@ -23,6 +23,7 @@ namespace StepUpApi.Services
             var serviceResponse = new ServiceResponse<IEnumerable<Customer>>
             {
                 Data = await _context.Customers
+                    .OrderBy(x => x.Name)
                     .Where(x => x.IsDeleted == false)
                     .ToListAsync()
             };

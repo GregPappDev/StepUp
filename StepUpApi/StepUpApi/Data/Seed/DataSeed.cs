@@ -117,13 +117,13 @@ namespace StepUpApi.Data.Seed
             {
                 new Appointment() { DateTime = startDate, Surgery = Eger, PersonnelAttending = users },
                 new Appointment() { DateTime = startDate.AddMinutes(10), Surgery = Eger, PersonnelAttending = users },
-                new Appointment() { DateTime = startDate.AddMinutes(20), Surgery = Eger, PersonnelAttending = users, Customer = customers[0] },
-                new Appointment() { DateTime = startDate.AddMinutes(30), Surgery = Eger, PersonnelAttending = users },
-                new Appointment() { DateTime = startDate.AddMinutes(40), Surgery = Eger, PersonnelAttending = users },
+                new Appointment() { DateTime = startDate.AddMinutes(20), Surgery = Eger, PersonnelAttending = users, Customer = customers[0], PatientName = "Simon Smith" },
+                new Appointment() { DateTime = startDate.AddMinutes(30), Surgery = Eger, PersonnelAttending = users, Customer = customers[2], PatientName = "David Johnson"  },
+                new Appointment() { DateTime = startDate.AddMinutes(40), Surgery = Eger, PersonnelAttending = users, Customer = customers[2], PatientName = "Carl Davids"  },
                 new Appointment() { DateTime = startDate.AddDays(1), Surgery = Abony, PersonnelAttending = users },
-                new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(10), Surgery = Abony, PersonnelAttending = users },
-                new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(20), Surgery = Abony, PersonnelAttending = users },
-                new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(30), Surgery = Abony, PersonnelAttending = users, Customer = customers[1]  },
+                new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(10), Surgery = Abony, PersonnelAttending = users, Customer = customers[3], PatientName = "Patty Morris" },
+                new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(20), Surgery = Abony, PersonnelAttending = users, Customer = customers[0], PatientName = "Susan Smith" },
+                new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(30), Surgery = Abony, PersonnelAttending = users, Customer = customers[1], PatientName = "Trish O'Reily"  },
                 new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(40), Surgery = Abony, PersonnelAttending = users },
             };
 
@@ -151,6 +151,26 @@ namespace StepUpApi.Data.Seed
                 new Customer(){ 
                     Name = "Google Inc.", 
                     InvoiceIssuer = "rendelő",
+                    BillingInfo = "átutalásos számla",
+                    Services = new List<Service>()
+                    {
+                        new Service(){Name = "D", Rate = 8000, IsCurrentRate = true},
+                        new Service(){Name = "C", Rate = 10000, IsCurrentRate = true}
+                    }
+                },
+                new Customer(){
+                    Name = "Microsoft Inc.",
+                    InvoiceIssuer = "rendelő",
+                    BillingInfo = "átutalásos számla",
+                    Services = new List<Service>()
+                    {
+                        new Service(){Name = "D", Rate = 8000, IsCurrentRate = true},
+                        new Service(){Name = "C", Rate = 10000, IsCurrentRate = true}
+                    }
+                },
+                new Customer(){
+                    Name = "Taxevasion Inc.",
+                    InvoiceIssuer = "iroda",
                     BillingInfo = "átutalásos számla",
                     Services = new List<Service>()
                     {
