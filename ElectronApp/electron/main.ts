@@ -120,8 +120,10 @@ app.on("activate", () => {
 
 app.whenReady().then(createWindow);
 
-ipcMain.handle("fetchData", async () => {
-  const response = await fetch("https://www.boredapi.com/api/activity/");
+ipcMain.handle("fetchCustomers", async () => {
+  const response = await fetch(
+    "https://localhost:7076/api/Customer/GetNotDeleted"
+  );
   const body = await response.text();
   console.log(body);
   return body;

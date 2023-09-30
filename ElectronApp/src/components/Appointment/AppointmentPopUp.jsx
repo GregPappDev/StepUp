@@ -2,12 +2,24 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Collapse from "react-bootstrap/Collapse";
 import Button from "react-bootstrap/Button";
+import { useEffect } from "react";
 
 const AppointmentPopUp = (appointment) => {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
+  const [customers, setCustomers] = useState([]);
 
-  console.log(` Ez jön át: ${appointment.appointment.id}`);
+  useEffect(() => {
+    async function getApi() {
+      let customerList = JSON.parse(await window.indexBridge.fetchCustomers());
+      setCustomers(customerList.data);
+    }
+
+    getApi();
+  }, []);
+
+  console.log(customers);
+
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
@@ -74,11 +86,21 @@ const AppointmentPopUp = (appointment) => {
           <div className="container">
             <form className="mb-5">
               <div className="form-floating">
-                <input
-                  type="text"
-                  className="form-control mb-2"
+                <select
+                  class="form-select"
                   id="customer"
-                />
+                  aria-label="Floating label select example"
+                >
+                  <option selected>...</option>
+                  {customers &&
+                    customers.map((customer) => {
+                      return (
+                        <option id={customer.id} value={customer.name}>
+                          {customer.name}
+                        </option>
+                      );
+                    })}
+                </select>
                 <label for="customer" className="form-label">
                   Partner
                 </label>
