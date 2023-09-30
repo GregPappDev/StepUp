@@ -45,27 +45,28 @@ const AppointmentPopUp = (appointment) => {
       >
         <Modal.Header>
           <Modal.Title style={{ width: "100vw" }}>
+            <div className="bg-primary">
+              <h2 className="p-2 m-0" style={{ color: "white" }}>
+                {appointment.appointment.surgeryName}
+              </h2>
+            </div>
+            <div className="bg-secondary px-2">
+              <div className="col text-white fs-5">
+                {appointment.appointment.dateTime.slice(0, 10)},{" "}
+                {weekdayCalculator(
+                  appointment.appointment.dateTime.slice(0, 10)
+                )}
+              </div>
+              <div className="col text-white fs-5 ">
+                <p>{appointment.appointment.dateTime.slice(11, 16)}</p>
+              </div>
+            </div>
             <div className="container">
               <div className="row">
-                <div className="col ">
-                  <h3 className="bg-primary p-2" style={{ color: "white" }}>
-                    {appointment.appointment.surgeryName}
-                  </h3>
-                </div>
+                <div className="col "></div>
               </div>
-              <div className="row">
-                <div className="col text-primary">
-                  {appointment.appointment.dateTime.slice(0, 10)},{" "}
-                  {weekdayCalculator(
-                    appointment.appointment.dateTime.slice(0, 10)
-                  )}
-                </div>
-              </div>
-              <div className="row">
-                <div className="col text-primary">
-                  <p>{appointment.appointment.dateTime.slice(11, 16)}</p>
-                </div>
-              </div>
+              <div className="row"></div>
+              <div className="row"></div>
             </div>
           </Modal.Title>
         </Modal.Header>
@@ -118,7 +119,7 @@ const AppointmentPopUp = (appointment) => {
           </div>
 
           <hr />
-          <div className="container bg-light ">
+          <div className="container bg-info pt-3">
             <Button
               onClick={() => setOpen(!open)}
               aria-controls="example-collapse-text"
@@ -128,7 +129,7 @@ const AppointmentPopUp = (appointment) => {
               Vizsgálat rögzítése
             </Button>
             <Collapse in={open}>
-              <div id="example-collapse-text" className="bg-light pb-2">
+              <div id="example-collapse-text" className="pb-2">
                 <form className="mb-2 mt-2">
                   <div className="mb-2">
                     <input
@@ -237,7 +238,7 @@ const AppointmentPopUp = (appointment) => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <button className="btn btn-success">Mentés</button>
+          <button className="btn btn-secondary">Mentés</button>
           <button className="btn btn-danger" onClick={handleClose}>
             Kilépés
           </button>
