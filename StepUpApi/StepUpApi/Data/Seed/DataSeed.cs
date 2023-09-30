@@ -125,6 +125,11 @@ namespace StepUpApi.Data.Seed
                 new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(20), Surgery = Abony, PersonnelAttending = users, Customer = customers[0], PatientName = "Susan Smith" },
                 new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(30), Surgery = Abony, PersonnelAttending = users, Customer = customers[1], PatientName = "Trish O'Reily"  },
                 new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(40), Surgery = Abony, PersonnelAttending = users },
+                new Appointment() { DateTime = startDate.AddDays(-1), Surgery = Abony, PersonnelAttending = users, Customer = customers[3], PatientName = "Patty Morris", HasAttended = false  },
+                new Appointment() { DateTime = startDate.AddDays(-1).AddMinutes(10), Surgery = Abony, PersonnelAttending = users, Customer = customers[3], PatientName = "Patty Morris", HasAttended = false },
+                new Appointment() { DateTime = startDate.AddDays(-1).AddMinutes(20), Surgery = Abony, PersonnelAttending = users, Customer = customers[3], PatientName = "Susan Smith", HasAttended = false },
+                new Appointment() { DateTime = startDate.AddDays(-1).AddMinutes(30), Surgery = Abony, PersonnelAttending = users, Customer = customers[1], PatientName = "Trish O'Reily", HasAttended = false  },
+                new Appointment() { DateTime = startDate.AddDays(-1).AddMinutes(40), Surgery = Abony, PersonnelAttending = users, Customer = customers[2], PatientName = "Patty Morris", HasAttended = false  },
             };
 
             _context.Appointments.AddRange(appointments);
