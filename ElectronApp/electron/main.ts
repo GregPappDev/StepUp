@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain, Menu } from "electron";
 import path from "node:path";
 import fetch from "node-fetch";
+import axios from "axios";
 
 // The built directory structure
 //
@@ -135,6 +136,22 @@ ipcMain.handle("fetchApi", async () => {
   const body = await response.text();
   return body;
 });
+
+ipcMain.handle("fetchExaminationType", async () => {
+  process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
+  const response = await fetch(
+    "https://localhost:7076/api/ExaminationType/GetNotDeleted"
+  );
+  const body = await response.text();
+  return body;
+});
+
+// ipcMain.handle("fetchAppointments", async () => {
+//   process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
+//   const response = await axios.get("https://localhost:7076/api/Appointment");
+//   console.log(response);
+//   return response;
+// });
 
 function pageNavigation(path: string) {
   win?.webContents.send("navi", path);

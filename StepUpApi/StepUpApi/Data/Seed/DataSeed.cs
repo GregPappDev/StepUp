@@ -25,9 +25,14 @@ namespace StepUpApi.Data.Seed
         {
             List<ExaminationType> types = new List<ExaminationType>()
             {
-                new ExaminationType {Type = "Initial Examination" },
-                new ExaminationType {Type = "Periodic Examination" },
-                new ExaminationType {Type = "Final Examination" },
+                new ExaminationType {Type = "előzetes" },
+                new ExaminationType {Type = "időszakos" },
+                new ExaminationType {Type = "soron kívüli" },
+                new ExaminationType {Type = "záró" },
+                new ExaminationType {Type = "beiskoklázás előtti" },
+                new ExaminationType {Type = "közfoglalkoztatás" },
+                new ExaminationType {Type = "másodfok" },
+                new ExaminationType {Type = "gépkezelői" },
             };
 
 

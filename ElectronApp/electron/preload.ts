@@ -11,6 +11,16 @@ const indexBridge = {
     //console.log(`API: ${result}`);
     return result;
   },
+  fetchExaminationType: async () => {
+    const result = await ipcRenderer.invoke("fetchExaminationType");
+    //console.log(`API: ${result}`);
+    return result;
+  },
+  fetchAppointments: async () => {
+    const result = await ipcRenderer.invoke("fetchAppointments");
+    console.log(`API: ${result}`);
+    return JSON.parse(result);
+  },
 };
 
 contextBridge.exposeInMainWorld("indexBridge", indexBridge);
