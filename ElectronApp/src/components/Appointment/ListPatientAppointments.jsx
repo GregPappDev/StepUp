@@ -31,8 +31,6 @@ const ListPatientAppointments = () => {
     setAppointments(filteredList);
   }, [search]);
 
-  console.log(search);
-
   return (
     <div>
       <PageTitle title={"Páciens időpontjainak keresése"} />

@@ -8,6 +8,8 @@ namespace StepUpApi.DTOs.Appointment
         public DateTime? DateTime { get; set; }
         public Guid? SurgeryId { get; set; }
         public string SurgeryName { get; set; } = string.Empty;
+        public bool isDeleted { get; set; } = false;
+        public bool? HasAttended { get; set; }
         public Guid? CustomerId { get; set; }
         public string CustomerName { get; set; } = string.Empty;
         public string PatientName { get; set; } = string.Empty;

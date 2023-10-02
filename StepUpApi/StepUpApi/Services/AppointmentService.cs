@@ -5,6 +5,7 @@ using StepUpApi.DTOs.Appointment;
 using StepUpApi.DTOs.ExaminationType;
 using StepUpApi.Models;
 using StepUpApi.Services.Interfaces;
+using System.Linq;
 
 namespace StepUpApi.Services
 {
@@ -27,6 +28,25 @@ namespace StepUpApi.Services
             //        .Include(x => x.Customer)
             //        .ToListAsync();
             var response = await _mapper.ProjectTo<AppointmentDto>(_context.Appointments, null).ToListAsync();
+
+            return response;
+        }
+
+        public async Task<IEnumerable<NotAttendedDto>> GetNotAttended()
+        {
+
+            var response = await _mapper
+                .ProjectTo<AppointmentDto>(_context.Appointments, null)
+                .Where(appointment => appointment.HasAttended == false)
+                .GroupBy(appointment => appointment.CustomerName)
+                .Select(group => new NotAttendedDto
+                {
+                    customerName = group.Key,
+                    count = group.Count()
+                })
+                .OrderByDescending(item => item.count)
+                .ToListAsync();                ;
+                
 
             return response;
         }
