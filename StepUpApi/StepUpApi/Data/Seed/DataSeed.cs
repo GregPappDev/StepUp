@@ -109,8 +109,10 @@ namespace StepUpApi.Data.Seed
             List<Customer> customers = CreateCustomers();
 
             var today = DateTime.Today.Day;
+            var month = DateTime.Today.Month;
+            var year = DateTime.Today.Year;
 
-            var startDate = new DateTime(2023,9,today,10,0,0);
+            var startDate = new DateTime(year,month,today,10,0,0);
 
             var appointments = new List<Appointment>()
 
@@ -129,7 +131,7 @@ namespace StepUpApi.Data.Seed
                 new Appointment() { DateTime = startDate.AddDays(-1).AddMinutes(10), Surgery = Abony, PersonnelAttending = users, Customer = customers[3], PatientName = "Patty Morris", HasAttended = false },
                 new Appointment() { DateTime = startDate.AddDays(-1).AddMinutes(20), Surgery = Abony, PersonnelAttending = users, Customer = customers[3], PatientName = "Susan Smith", HasAttended = false },
                 new Appointment() { DateTime = startDate.AddDays(-1).AddMinutes(30), Surgery = Abony, PersonnelAttending = users, Customer = customers[1], PatientName = "Trish O'Reily", HasAttended = false  },
-                new Appointment() { DateTime = startDate.AddDays(-1).AddMinutes(40), Surgery = Abony, PersonnelAttending = users, Customer = customers[2], PatientName = "Patty Morris", HasAttended = false  },
+                new Appointment() { DateTime = startDate.AddDays(-1).AddMinutes(40), Surgery = Abony, PersonnelAttending = users, Customer = customers[2], PatientName = "Patty O'Reily", HasAttended = false  },
             };
 
             _context.Appointments.AddRange(appointments);

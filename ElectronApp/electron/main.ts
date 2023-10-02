@@ -75,7 +75,10 @@ const template: Electron.MenuItemConstructorOptions[] = [
       { label: "Időpontok generálása" },
       { label: "Egyedi időpont beszúrása" },
       { type: "separator" },
-      { label: "Páciens időpont keresése" },
+      {
+        label: "Páciens időpont keresése",
+        click: () => pageNavigation("/patientappointments"),
+      },
       {
         label: "Partner előgyezéseinek listázása",
         click: () => pageNavigation("/customerappointments"),
@@ -122,6 +125,7 @@ app.on("activate", () => {
 app.whenReady().then(createWindow);
 
 ipcMain.handle("fetchCustomers", async () => {
+  process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
   const response = await fetch(
     "https://localhost:7076/api/Customer/GetNotDeleted"
   );
