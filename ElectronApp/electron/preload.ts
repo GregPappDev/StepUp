@@ -3,21 +3,27 @@ import { contextBridge, ipcRenderer } from "electron";
 const indexBridge = {
   fetchCustomers: async () => {
     const result = await ipcRenderer.invoke("fetchCustomers");
-    //console.log(`result: ${result}`);
+
     return result;
   },
   fetchApi: async () => {
     const result = await ipcRenderer.invoke("fetchApi");
-    //console.log(`API: ${result}`);
+
     return result;
   },
   fetchExaminationType: async () => {
     const result = await ipcRenderer.invoke("fetchExaminationType");
-    //console.log(`API: ${result}`);
+
     return result;
   },
   fetchAppointments: async () => {
     const result = await ipcRenderer.invoke("fetchAppointments");
+
+    return JSON.parse(result);
+  },
+
+  fetchNotAttended: async () => {
+    const result = await ipcRenderer.invoke("fetchNotAttended");
     console.log(`API: ${result}`);
     return JSON.parse(result);
   },

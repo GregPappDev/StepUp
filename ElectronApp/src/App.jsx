@@ -4,6 +4,7 @@ import HomeView from "./components/Home/HomeView";
 import AppointmentView from "./components/Appointment/AppointmentView";
 import ListCustomerAppointments from "./components/Appointment/ListCustomerAppointments";
 import ListPatientAppointments from "./components/Appointment/ListPatientAppointments";
+import NotAttendedStatistics from "./components/Appointment/NotAttendedStatistics";
 
 function App() {
   const [path, setPath] = useState("/");
@@ -32,6 +33,7 @@ function App() {
           path="/patientappointments"
           element={<ListPatientAppointments />}
         />
+        <Route path="/notattended" element={<NotAttendedStatistics />} />
         <Route path="/" element={<HomeView />} />
       </Routes>
     </>

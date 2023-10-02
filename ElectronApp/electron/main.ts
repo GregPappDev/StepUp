@@ -84,7 +84,10 @@ const template: Electron.MenuItemConstructorOptions[] = [
         click: () => pageNavigation("/customerappointments"),
       },
       { type: "separator" },
-      { label: '"Nem jelent meg" statisztika' },
+      {
+        label: '"Nem jelent meg" statisztika',
+        click: () => pageNavigation("/notattended"),
+      },
     ],
   },
   {
@@ -145,6 +148,15 @@ ipcMain.handle("fetchExaminationType", async () => {
   process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
   const response = await fetch(
     "https://localhost:7076/api/ExaminationType/GetNotDeleted"
+  );
+  const body = await response.text();
+  return body;
+});
+
+ipcMain.handle("fetchNotAttended", async () => {
+  process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
+  const response = await fetch(
+    "https://localhost:7076/api/Appointment/GetNotAttended"
   );
   const body = await response.text();
   return body;
