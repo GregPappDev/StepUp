@@ -10,6 +10,8 @@ using StepUpApi.DTOs.ContactPerson;
 using StepUpApi.Models;
 using StepUpApi.DTOs.ContactDetails;
 using StepUpApi.DTOs.AppointmentLog;
+using StepUpApi.DTOs.Appointment;
+using StepUpApi.DTOs.UserDto;
 
 namespace StepUpApi
 {
@@ -22,12 +24,14 @@ namespace StepUpApi
             CreateMap<CreatePeriodicInvoiceDto, PeriodicInvoice>();
             CreateMap<UpdateOwnerDto, Owner>();
             CreateMap<UpdateServiceDto, Service>();
-            CreateMap<UpdateLocationDto, Location>();
+            CreateMap<UpdateSurgeryDto, Surgery>();
             CreateMap<UpdateEmployeeTypeDto, EmployeeType>();
             CreateMap<UpdateContactPersonDto, ContactPerson>();
             CreateMap<UpdateContactDetailsDto, ContactDetails>();
             CreateMap<UpdateAppointmentLogDto, AppointmentLog>();
             CreateMap<CreateAppointmentLogDto, AppointmentLog>();
+            CreateMap<Appointment, AppointmentDto>();
+            CreateMap<User, UserDto>();
         }
     }
 }

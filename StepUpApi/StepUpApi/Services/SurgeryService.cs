@@ -7,20 +7,20 @@ using StepUpApi.Services.Interfaces;
 
 namespace StepUpApi.Services
 {
-    public class LocationService : ILocationService
+    public class SurgeryService : ISurgeryService
     {
         private readonly ApiDbContext _context;
         private readonly IMapper _mapper;
 
-        public LocationService(ApiDbContext context, IMapper mapper)
+        public SurgeryService(ApiDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public async Task<ServiceResponse<IEnumerable<Location>>> GetAll()
+        public async Task<ServiceResponse<IEnumerable<Surgery>>> GetAll()
         {
-            var serviceResponse = new ServiceResponse<IEnumerable<Location>>
+            var serviceResponse = new ServiceResponse<IEnumerable<Surgery>>
             {
                 Data = await _context.Locations
                     .Include(x => x.Customers)
@@ -30,9 +30,9 @@ namespace StepUpApi.Services
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<IEnumerable<Location>>> GetNotDeleted()
+        public async Task<ServiceResponse<IEnumerable<Surgery>>> GetNotDeleted()
         {
-            var serviceResponse = new ServiceResponse<IEnumerable<Location>>
+            var serviceResponse = new ServiceResponse<IEnumerable<Surgery>>
             {
                 Data = await _context.Locations
                     .Where(x => x.IsDeleted == false)
@@ -43,23 +43,23 @@ namespace StepUpApi.Services
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<Location>> GetById(Guid id)
+        public async Task<ServiceResponse<Surgery>> GetById(Guid id)
         {
-            var serviceResponse = new ServiceResponse<Location>();
+            var serviceResponse = new ServiceResponse<Surgery>();
             serviceResponse.Data = await _context.Locations.FirstOrDefaultAsync(x => x.Id == id);
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<Location>> Create(UpdateLocationDto dto)
+        public async Task<ServiceResponse<Surgery>> Create(UpdateSurgeryDto dto)
         {
-            var serviceResponse = new ServiceResponse<Location>();
+            var serviceResponse = new ServiceResponse<Surgery>();
             if (await _context.Locations.AnyAsync(x => x.Name == dto.Name))
             {
                 serviceResponse.Data = null;
                 return serviceResponse;
             }
 
-            var location = _mapper.Map<Location>(dto);
+            var location = _mapper.Map<Surgery>(dto);
 
             _context.Locations.Add(location);
             await _context.SaveChangesAsync();
@@ -68,9 +68,9 @@ namespace StepUpApi.Services
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<Location>> Update(Guid id, UpdateLocationDto updatedData)
+        public async Task<ServiceResponse<Surgery>> Update(Guid id, UpdateSurgeryDto updatedData)
         {
-            var serviceResponse = new ServiceResponse<Location>();
+            var serviceResponse = new ServiceResponse<Surgery>();
 
             var location = await _context.Locations.FirstOrDefaultAsync(x => x.Id == id);
             if (location == null)
@@ -87,7 +87,7 @@ namespace StepUpApi.Services
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<Location>> Delete(Guid id)
+        public async Task<ServiceResponse<Surgery>> Delete(Guid id)
         {
             var serviceResponse = await GetById(id);
             if (serviceResponse.Data == null)

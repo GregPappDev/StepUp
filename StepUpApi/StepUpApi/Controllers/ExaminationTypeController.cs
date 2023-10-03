@@ -9,7 +9,7 @@ using System.Data;
 
 namespace StepUpApi.Controllers
 {
-    [Authorize(Roles = "admin")]
+    //[Authorize(Roles = "admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class ExaminationTypeController : ControllerBase
