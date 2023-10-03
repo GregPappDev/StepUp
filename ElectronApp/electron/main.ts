@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain, Menu } from "electron";
 import path from "node:path";
 import fetch from "node-fetch";
+import axios from "axios";
 
 // The built directory structure
 //
@@ -74,10 +75,19 @@ const template: Electron.MenuItemConstructorOptions[] = [
       { label: "Időpontok generálása" },
       { label: "Egyedi időpont beszúrása" },
       { type: "separator" },
-      { label: "Páciens időpont keresése" },
-      { label: "Partner előgyezéseinek listázása" },
+      {
+        label: "Páciens időpont keresése",
+        click: () => pageNavigation("/patientappointments"),
+      },
+      {
+        label: "Partner előgyezéseinek listázása",
+        click: () => pageNavigation("/customerappointments"),
+      },
       { type: "separator" },
-      { label: '"Nem jelent meg" statisztika' },
+      {
+        label: '"Nem jelent meg" statisztika',
+        click: () => pageNavigation("/notattended"),
+      },
     ],
   },
   {
@@ -117,8 +127,11 @@ app.on("activate", () => {
 
 app.whenReady().then(createWindow);
 
-ipcMain.handle("fetchData", async () => {
-  const response = await fetch("https://www.boredapi.com/api/activity/");
+ipcMain.handle("fetchCustomers", async () => {
+  process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
+  const response = await fetch(
+    "https://localhost:7076/api/Customer/GetNotDeleted"
+  );
   const body = await response.text();
   console.log(body);
   return body;
@@ -130,6 +143,31 @@ ipcMain.handle("fetchApi", async () => {
   const body = await response.text();
   return body;
 });
+
+ipcMain.handle("fetchExaminationType", async () => {
+  process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
+  const response = await fetch(
+    "https://localhost:7076/api/ExaminationType/GetNotDeleted"
+  );
+  const body = await response.text();
+  return body;
+});
+
+ipcMain.handle("fetchNotAttended", async () => {
+  process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
+  const response = await fetch(
+    "https://localhost:7076/api/Appointment/GetNotAttended"
+  );
+  const body = await response.text();
+  return body;
+});
+
+// ipcMain.handle("fetchAppointments", async () => {
+//   process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
+//   const response = await axios.get("https://localhost:7076/api/Appointment");
+//   console.log(response);
+//   return response;
+// });
 
 function pageNavigation(path: string) {
   win?.webContents.send("navi", path);

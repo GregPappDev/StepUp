@@ -2,12 +2,29 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Collapse from "react-bootstrap/Collapse";
 import Button from "react-bootstrap/Button";
+import { useEffect } from "react";
 
 const AppointmentPopUp = (appointment) => {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
+  const [customerList, setCustomerList] = useState([]);
+  const [examinationTypeList, setExaminationTypeList] = useState([]);
 
-  console.log(` Ez jön át: ${appointment.appointment.id}`);
+  useEffect(() => {
+    async function getApi() {
+      let customers = JSON.parse(await window.indexBridge.fetchCustomers());
+      setCustomerList(customers.data);
+      let examinationTypes = JSON.parse(
+        await window.indexBridge.fetchExaminationType()
+      );
+      setExaminationTypeList(examinationTypes.data);
+    }
+
+    getApi();
+  }, []);
+
+  console.log(examinationTypeList);
+
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
@@ -74,11 +91,21 @@ const AppointmentPopUp = (appointment) => {
           <div className="container">
             <form className="mb-5">
               <div className="form-floating">
-                <input
-                  type="text"
-                  className="form-control mb-2"
+                <select
+                  className="form-select mb-2"
                   id="customer"
-                />
+                  aria-label="Floating label select example"
+                >
+                  <option selected>...</option>
+                  {customerList &&
+                    customerList.map((customer) => {
+                      return (
+                        <option id={customer.id} value={customer.name}>
+                          {customer.name}
+                        </option>
+                      );
+                    })}
+                </select>
                 <label for="customer" className="form-label">
                   Partner
                 </label>
@@ -98,15 +125,30 @@ const AppointmentPopUp = (appointment) => {
                 </label>
               </div>
 
-              <div className="form-floating">
-                <input
-                  type="text"
-                  className="form-control mb-2"
-                  id="examinationType"
-                />
-                <label for="examinationType" className="form-label">
-                  Vizsgálat típusa
+              <div>
+                <label
+                  for="examinationType"
+                  className="form-label ms-3 h6"
+                  style={{ color: "#AEAEAE" }}
+                >
+                  <small>Vizsgálat típusa</small>
                 </label>
+                <select
+                  className="form-select mb-2 pt-1"
+                  id="customer"
+                  aria-label="Floating label select example"
+                  style={{ height: "120px" }}
+                  multiple
+                >
+                  {examinationTypeList &&
+                    examinationTypeList.map((type) => {
+                      return (
+                        <option id={type.id} value={type.type}>
+                          {type.type}
+                        </option>
+                      );
+                    })}
+                </select>
               </div>
 
               <div className="form-floating">
@@ -159,16 +201,6 @@ const AppointmentPopUp = (appointment) => {
                     </div>
                     <div className="form-floating">
                       <input
-                        type="text"
-                        className="form-control mb-2"
-                        id="invoiceNumber"
-                      />
-                      <label for="invoiceNumber" className="form-label">
-                        Számlaszám
-                      </label>
-                    </div>
-                    <div className="form-floating">
-                      <input
                         type="textarea"
                         className="form-control mb-2 disabled"
                         id="invoiceComment"
@@ -177,6 +209,17 @@ const AppointmentPopUp = (appointment) => {
                         Számlázáshoz megjegyzés
                       </label>
                     </div>
+                    <div className="form-floating">
+                      <input
+                        type="text"
+                        className="form-control mb-2"
+                        id="invoiceNumber"
+                      />
+                      <label for="invoiceNumber" className="form-label">
+                        Számlaszám
+                      </label>
+                    </div>
+
                     <p>Díjak</p>
                     <div className="row">
                       <div className="col col-3">

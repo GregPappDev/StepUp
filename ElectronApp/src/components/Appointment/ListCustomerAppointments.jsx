@@ -1,76 +1,50 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import AppointmentPopUp from "./AppointmentPopUp";
+import { useState, useEffect } from "react";
 import PageTitle from "../Shared/PageTitle";
 
-const AppointmentView = () => {
-  const [appointments, setAppointments] = useState([]);
+const ListCustomerAppointments = () => {
+  const [dropDown, setDropDown] = useState("");
+  const [customerList, setCustomerList] = useState([]);
   const [originalList, setOriginalList] = useState([]);
+  const [appointments, setAppointments] = useState([]);
+  const [selection, setSelection] = useState("");
 
-  // GET data from WEB API
   useEffect(() => {
     async function getApi() {
+      let customers = JSON.parse(await window.indexBridge.fetchCustomers());
+      setCustomerList(customers.data);
       let response = JSON.parse(await window.indexBridge.fetchApi());
       setOriginalList(response);
-      const filteredList = response.filter((appointment) => {
-        return appointment.surgeryName === dropDown;
-      });
-
-      setAppointments(filteredList);
     }
 
     getApi();
   }, []);
 
-  // Populate dropdown menu
-
-  const options = [
-    { value: "", text: "" },
-    { value: "Eger", text: "Eger" },
-    { value: "Füzesabony", text: "Füzesabony" },
-    { value: "Kápolna", text: "Kápolna" },
-    { value: "Sirok", text: "Sirok" },
-  ];
-
-  const [dropDown, setDropDown] = useState(options[0].value);
-  const [date, setDate] = useState("");
-
   const dropdownChange = (event) => {
-    console.log(event.target.value);
     setDropDown(event.target.value);
-    console.log(`original: ${originalList}`);
-  };
-
-  const dateChange = (event) => {
-    console.log(event.target.value);
-    setDate(event.target.value);
+    setSelection(event.target.value);
   };
 
   useEffect(() => {
-    console.log(`dropdown: ${dropDown}`);
-    console.log(`appointments: ${appointments}`);
-    const filteredList = originalList.filter((appointment) => {
-      return (
-        appointment.surgeryName === dropDown &&
-        appointment.dateTime.slice(0, 10) === date
+    const filteredList = originalList
+      .filter((appointment) => appointment.customerName === selection)
+      .sort((a1, a2) =>
+        a1.dateTime < a2.dateTime ? 1 : a1.dateTime > a2.dateTime ? -1 : 0
       );
-    });
-    console.log(filteredList);
-
     setAppointments(filteredList);
-  }, [dropDown, date]);
+    console.log(selection);
+  }, [selection]);
 
   return (
     <div>
-      {/* TITLE SECTION */}
-      <PageTitle title={"Előjegyzés"} />
+      <PageTitle title={"Partner időpontjainak keresése"} />
 
       {/* SEARCH BAR SECTION */}
       <div className="bg-secondary">
         <div className="container-fluid  text-white">
           <div className="row align-items-center">
-            <div className="col-md-1">
-              <p className="m-2">Rendelő</p>
+            <div className="col-md-2">
+              <p className="m-2">Partner kiválasztása</p>
             </div>
             <div className="col-md-2">
               <select
@@ -79,30 +53,18 @@ const AppointmentView = () => {
                 style={{ border: "none" }}
                 className="m-2"
               >
-                {options.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.text}
+                <option selected></option>
+                {customerList.map((customer) => (
+                  <option key={customer.id} value={customer.name}>
+                    {customer.name}
                   </option>
                 ))}
               </select>
             </div>
-            <div className="col-md-1">
-              <p className="m-2">Dátum</p>
-            </div>
-            <div className="col-md-1">
-              <input
-                onChange={dateChange}
-                className="m-2"
-                type="date"
-                style={{ border: "none" }}
-              />
-            </div>
           </div>
         </div>
-
-        <div className="m-5 bg-white"></div>
       </div>
-
+      <div className="m-5 bg-white"></div>
       {/* TABLE SECTION */}
       <div className="container-fluid">
         <table className="table table-hover table-responsive ">
@@ -127,9 +89,7 @@ const AppointmentView = () => {
                     key={appointment.id}
                     onClick={() => console.log("clickkk")}
                   >
-                    <td>
-                      <AppointmentPopUp appointment={appointment} />
-                    </td>
+                    <td>{appointment.surgeryName}</td>
                     <td>{appointment.dateTime.slice(0, 10)}</td>
                     <td>{appointment.dateTime.slice(11, 16)}</td>
 
@@ -156,4 +116,4 @@ const AppointmentView = () => {
   );
 };
 
-export default AppointmentView;
+export default ListCustomerAppointments;

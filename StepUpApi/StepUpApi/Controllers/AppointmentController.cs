@@ -22,5 +22,11 @@ namespace StepUpApi.Controllers
         {
             return Ok(await _service.GetAll());
         }
+
+        [HttpGet("[action]")]
+        public async Task<ActionResult<IEnumerable<NotAttendedDto>>> GetNotAttended()
+        {
+            return Ok(await _service.GetNotAttended());
+        }
     }
 }

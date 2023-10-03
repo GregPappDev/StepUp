@@ -1,108 +1,59 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import AppointmentPopUp from "./AppointmentPopUp";
+import { useState, useEffect } from "react";
 import PageTitle from "../Shared/PageTitle";
 
-const AppointmentView = () => {
+const ListPatientAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [originalList, setOriginalList] = useState([]);
+  const [search, setSearch] = useState("");
 
   // GET data from WEB API
   useEffect(() => {
     async function getApi() {
       let response = JSON.parse(await window.indexBridge.fetchApi());
       setOriginalList(response);
-      const filteredList = response.filter((appointment) => {
-        return appointment.surgeryName === dropDown;
-      });
-
-      setAppointments(filteredList);
     }
 
     getApi();
   }, []);
 
-  // Populate dropdown menu
-
-  const options = [
-    { value: "", text: "" },
-    { value: "Eger", text: "Eger" },
-    { value: "Füzesabony", text: "Füzesabony" },
-    { value: "Kápolna", text: "Kápolna" },
-    { value: "Sirok", text: "Sirok" },
-  ];
-
-  const [dropDown, setDropDown] = useState(options[0].value);
-  const [date, setDate] = useState("");
-
-  const dropdownChange = (event) => {
-    console.log(event.target.value);
-    setDropDown(event.target.value);
-    console.log(`original: ${originalList}`);
-  };
-
-  const dateChange = (event) => {
-    console.log(event.target.value);
-    setDate(event.target.value);
+  const searchPatient = (event) => {
+    setSearch(event.target.value);
   };
 
   useEffect(() => {
-    console.log(`dropdown: ${dropDown}`);
-    console.log(`appointments: ${appointments}`);
     const filteredList = originalList.filter((appointment) => {
-      return (
-        appointment.surgeryName === dropDown &&
-        appointment.dateTime.slice(0, 10) === date
-      );
+      return search.toLowerCase() === ""
+        ? ""
+        : appointment.patientName.toLowerCase().includes(search.toLowerCase());
     });
-    console.log(filteredList);
 
     setAppointments(filteredList);
-  }, [dropDown, date]);
+  }, [search]);
 
   return (
     <div>
-      {/* TITLE SECTION */}
-      <PageTitle title={"Előjegyzés"} />
+      <PageTitle title={"Páciens időpontjainak keresése"} />
 
       {/* SEARCH BAR SECTION */}
+
       <div className="bg-secondary">
         <div className="container-fluid  text-white">
           <div className="row align-items-center">
-            <div className="col-md-1">
-              <p className="m-2">Rendelő</p>
+            <div className="col-md-2">
+              <p className="m-2">Páciens kiválasztása</p>
             </div>
             <div className="col-md-2">
-              <select
-                value={dropDown}
-                onChange={dropdownChange}
-                style={{ border: "none" }}
-                className="m-2"
-              >
-                {options.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.text}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="col-md-1">
-              <p className="m-2">Dátum</p>
-            </div>
-            <div className="col-md-1">
               <input
-                onChange={dateChange}
-                className="m-2"
-                type="date"
-                style={{ border: "none" }}
-              />
+                type="text"
+                className="form-control-sm p-1 m-2"
+                onChange={searchPatient}
+              ></input>
             </div>
           </div>
         </div>
-
-        <div className="m-5 bg-white"></div>
       </div>
-
+      <div className="m-5 bg-white"></div>
       {/* TABLE SECTION */}
       <div className="container-fluid">
         <table className="table table-hover table-responsive ">
@@ -127,9 +78,7 @@ const AppointmentView = () => {
                     key={appointment.id}
                     onClick={() => console.log("clickkk")}
                   >
-                    <td>
-                      <AppointmentPopUp appointment={appointment} />
-                    </td>
+                    <td>{appointment.surgeryName} </td>
                     <td>{appointment.dateTime.slice(0, 10)}</td>
                     <td>{appointment.dateTime.slice(11, 16)}</td>
 
@@ -156,4 +105,4 @@ const AppointmentView = () => {
   );
 };
 
-export default AppointmentView;
+export default ListPatientAppointments;

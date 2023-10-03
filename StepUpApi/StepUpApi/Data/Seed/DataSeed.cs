@@ -17,7 +17,7 @@ namespace StepUpApi.Data.Seed
             CreateExaminationTypes();
             CreateRoles();
             CreateUsers();
-            CreateCustomers();
+            
             CreateAppointments();
         }
 
@@ -25,9 +25,14 @@ namespace StepUpApi.Data.Seed
         {
             List<ExaminationType> types = new List<ExaminationType>()
             {
-                new ExaminationType {Type = "Initial Examination" },
-                new ExaminationType {Type = "Periodic Examination" },
-                new ExaminationType {Type = "Final Examination" },
+                new ExaminationType {Type = "előzetes" },
+                new ExaminationType {Type = "időszakos" },
+                new ExaminationType {Type = "soron kívüli" },
+                new ExaminationType {Type = "záró" },
+                new ExaminationType {Type = "beiskoklázás előtti" },
+                new ExaminationType {Type = "közfoglalkoztatás" },
+                new ExaminationType {Type = "másodfok" },
+                new ExaminationType {Type = "gépkezelői" },
             };
 
 
@@ -104,22 +109,29 @@ namespace StepUpApi.Data.Seed
             List<Customer> customers = CreateCustomers();
 
             var today = DateTime.Today.Day;
+            var month = DateTime.Today.Month;
+            var year = DateTime.Today.Year;
 
-            var startDate = new DateTime(2023,9,today,10,0,0);
+            var startDate = new DateTime(year,month,today,10,0,0);
 
             var appointments = new List<Appointment>()
 
             {
                 new Appointment() { DateTime = startDate, Surgery = Eger, PersonnelAttending = users },
                 new Appointment() { DateTime = startDate.AddMinutes(10), Surgery = Eger, PersonnelAttending = users },
-                new Appointment() { DateTime = startDate.AddMinutes(20), Surgery = Eger, PersonnelAttending = users, Customer = customers[0] },
-                new Appointment() { DateTime = startDate.AddMinutes(30), Surgery = Eger, PersonnelAttending = users },
-                new Appointment() { DateTime = startDate.AddMinutes(40), Surgery = Eger, PersonnelAttending = users },
+                new Appointment() { DateTime = startDate.AddMinutes(20), Surgery = Eger, PersonnelAttending = users, Customer = customers[0], PatientName = "Simon Smith" },
+                new Appointment() { DateTime = startDate.AddMinutes(30), Surgery = Eger, PersonnelAttending = users, Customer = customers[2], PatientName = "David Johnson"  },
+                new Appointment() { DateTime = startDate.AddMinutes(40), Surgery = Eger, PersonnelAttending = users, Customer = customers[2], PatientName = "Carl Davids"  },
                 new Appointment() { DateTime = startDate.AddDays(1), Surgery = Abony, PersonnelAttending = users },
-                new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(10), Surgery = Abony, PersonnelAttending = users },
-                new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(20), Surgery = Abony, PersonnelAttending = users },
-                new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(30), Surgery = Abony, PersonnelAttending = users, Customer = customers[1]  },
+                new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(10), Surgery = Abony, PersonnelAttending = users, Customer = customers[3], PatientName = "Patty Morris" },
+                new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(20), Surgery = Abony, PersonnelAttending = users, Customer = customers[0], PatientName = "Susan Smith" },
+                new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(30), Surgery = Abony, PersonnelAttending = users, Customer = customers[1], PatientName = "Trish O'Reily"  },
                 new Appointment() { DateTime = startDate.AddDays(1).AddMinutes(40), Surgery = Abony, PersonnelAttending = users },
+                new Appointment() { DateTime = startDate.AddDays(-1), Surgery = Abony, PersonnelAttending = users, Customer = customers[3], PatientName = "Patty Morris", HasAttended = false  },
+                new Appointment() { DateTime = startDate.AddDays(-1).AddMinutes(10), Surgery = Abony, PersonnelAttending = users, Customer = customers[3], PatientName = "Patty Morris", HasAttended = false },
+                new Appointment() { DateTime = startDate.AddDays(-1).AddMinutes(20), Surgery = Abony, PersonnelAttending = users, Customer = customers[3], PatientName = "Susan Smith", HasAttended = false },
+                new Appointment() { DateTime = startDate.AddDays(-1).AddMinutes(30), Surgery = Abony, PersonnelAttending = users, Customer = customers[1], PatientName = "Trish O'Reily", HasAttended = false  },
+                new Appointment() { DateTime = startDate.AddDays(-1).AddMinutes(40), Surgery = Abony, PersonnelAttending = users, Customer = customers[2], PatientName = "Patty O'Reily", HasAttended = false  },
             };
 
             _context.Appointments.AddRange(appointments);
@@ -133,8 +145,46 @@ namespace StepUpApi.Data.Seed
            
             var customers = new List<Customer>()
             {
-                new Customer(){ Name = "Apple Inc."},
-                new Customer(){ Name = "Google Inc."}
+                new Customer(){ 
+                    Name = "Apple Inc.", 
+                    InvoiceIssuer = "iroda",
+                    BillingInfo = "készpénzes számla",
+                    Services = new List<Service>()
+                    {
+                        new Service(){Name = "D", Rate = 8000, IsCurrentRate = true},
+                        new Service(){Name = "C", Rate = 10000, IsCurrentRate = true}
+                    }
+                },
+                new Customer(){ 
+                    Name = "Google Inc.", 
+                    InvoiceIssuer = "rendelő",
+                    BillingInfo = "átutalásos számla",
+                    Services = new List<Service>()
+                    {
+                        new Service(){Name = "D", Rate = 8000, IsCurrentRate = true},
+                        new Service(){Name = "C", Rate = 10000, IsCurrentRate = true}
+                    }
+                },
+                new Customer(){
+                    Name = "Microsoft Inc.",
+                    InvoiceIssuer = "rendelő",
+                    BillingInfo = "átutalásos számla",
+                    Services = new List<Service>()
+                    {
+                        new Service(){Name = "D", Rate = 8000, IsCurrentRate = true},
+                        new Service(){Name = "C", Rate = 10000, IsCurrentRate = true}
+                    }
+                },
+                new Customer(){
+                    Name = "Taxevasion Inc.",
+                    InvoiceIssuer = "iroda",
+                    BillingInfo = "átutalásos számla",
+                    Services = new List<Service>()
+                    {
+                        new Service(){Name = "D", Rate = 8000, IsCurrentRate = true},
+                        new Service(){Name = "C", Rate = 10000, IsCurrentRate = true}
+                    }
+                }
             };
 
             _context.Customers.AddRange(customers);
