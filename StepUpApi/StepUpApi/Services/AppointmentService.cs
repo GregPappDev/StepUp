@@ -51,9 +51,25 @@ namespace StepUpApi.Services
             return response;
         }
 
-        public Task<ServiceResponse<Appointment>> Create(CreateAppointmentDto dto)
+        public async Task<ServiceResponse<Appointment>> Create(CreateAppointmentDto dto)
         {
-            throw new NotImplementedException();
+            var response = new ServiceResponse<Appointment>();
+            
+            if (dto.DateTime == default(DateTime) || dto.Surgery == null || dto.PersonnelAttending.Count < 1) 
+            {
+                response.Data = null;
+                response.Message = "Please provide all necessary fields";
+                response.Success = false;
+                return response;
+            }
+            
+            var appointment = _mapper.Map<Appointment>(dto);
+            _context.Appointments.Add(appointment);
+            await _context.SaveChangesAsync();
+
+            response.Data = appointment;
+
+            return response;
         }
 
         public Task<ServiceResponse<Appointment>> Delete(Guid id)
