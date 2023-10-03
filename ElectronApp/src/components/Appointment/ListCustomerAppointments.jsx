@@ -64,7 +64,7 @@ const ListCustomerAppointments = () => {
           </div>
         </div>
       </div>
-
+      <div className="m-5 bg-white"></div>
       {/* TABLE SECTION */}
       <div className="container-fluid">
         <table className="table table-hover table-responsive ">

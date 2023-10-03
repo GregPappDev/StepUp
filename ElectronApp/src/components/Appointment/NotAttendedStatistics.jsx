@@ -7,7 +7,7 @@ const NotAttendedStatistics = () => {
 
   useEffect(() => {
     async function getApi() {
-      let response = JSON.parse(await window.indexBridge.fetchNotAttended());
+      let response = await window.indexBridge.fetchNotAttended();
       setList(response);
     }
 
@@ -19,8 +19,12 @@ const NotAttendedStatistics = () => {
   return (
     <div>
       <PageTitle title={'"Nem jelent meg" statisztika'} />
-      <div className="container-fluid">
-        <table className="table table-hover table-responsive ">
+      <div className="m-5 bg-white"></div>
+      <div className="container ">
+        <table
+          className="table table-hover table-responsive "
+          style={{ maxWidth: "500px" }}
+        >
           <thead>
             <tr>
               <th>Partner</th>
