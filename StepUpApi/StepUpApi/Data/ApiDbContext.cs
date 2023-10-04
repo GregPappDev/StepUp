@@ -12,7 +12,7 @@ public class ApiDbContext : DbContext
     public DbSet<Customer> Customers { get; set; }
     public DbSet<EmployeeType> EmployeeTypes { get; set; }
     public DbSet<ExaminationType> ExaminationTypes { get; set; }
-    public DbSet<Surgery> Locations { get; set; }
+    public DbSet<Surgery> Surgeries { get; set; }
     public DbSet<Owner> Owners { get; set; }
     public DbSet<PeriodicInvoice> PeriodicInvoices { get; set; }
     public DbSet<Role> Roles { get; set; }

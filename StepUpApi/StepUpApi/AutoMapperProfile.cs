@@ -31,7 +31,9 @@ namespace StepUpApi
             CreateMap<UpdateAppointmentLogDto, AppointmentLog>();
             CreateMap<CreateAppointmentLogDto, AppointmentLog>();
             CreateMap<Appointment, AppointmentDto>();
-            CreateMap<User, UserDto>();
+            CreateMap<AppointmentDto, Appointment>();
+            CreateMap<User, BasicUserDto>();
+            CreateMap<BasicUserDto, User>();
             CreateMap<CreateAppointmentDto, Appointment>();
         }
     }

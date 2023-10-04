@@ -15,6 +15,6 @@ namespace StepUpApi.DTOs.Appointment
         public string PatientName { get; set; } = string.Empty;
         public ICollection<Models.ExaminationType> ExaminationTypes { get; set; } = new List<Models.ExaminationType>();
         public string Comment { get; set; } = string.Empty;
-        public ICollection<UserDto.UserDto> PersonnelAttending { get; set; } = new List<UserDto.UserDto>();
+        public ICollection<UserDto.BasicUserDto> PersonnelAttending { get; set; } = new List<UserDto.BasicUserDto>();
     }
 }

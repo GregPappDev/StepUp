@@ -22,7 +22,7 @@ namespace StepUpApi.Services
         {
             var serviceResponse = new ServiceResponse<IEnumerable<Surgery>>
             {
-                Data = await _context.Locations
+                Data = await _context.Surgeries
                     .Include(x => x.Customers)
                     .Include(x => x.Appointments)
                     .ToListAsync()
@@ -34,7 +34,7 @@ namespace StepUpApi.Services
         {
             var serviceResponse = new ServiceResponse<IEnumerable<Surgery>>
             {
-                Data = await _context.Locations
+                Data = await _context.Surgeries
                     .Where(x => x.IsDeleted == false)
                     .Include(x => x.Customers)
                     .Include(x => x.Appointments)
@@ -46,14 +46,14 @@ namespace StepUpApi.Services
         public async Task<ServiceResponse<Surgery>> GetById(Guid id)
         {
             var serviceResponse = new ServiceResponse<Surgery>();
-            serviceResponse.Data = await _context.Locations.FirstOrDefaultAsync(x => x.Id == id);
+            serviceResponse.Data = await _context.Surgeries.FirstOrDefaultAsync(x => x.Id == id);
             return serviceResponse;
         }
 
         public async Task<ServiceResponse<Surgery>> Create(UpdateSurgeryDto dto)
         {
             var serviceResponse = new ServiceResponse<Surgery>();
-            if (await _context.Locations.AnyAsync(x => x.Name == dto.Name))
+            if (await _context.Surgeries.AnyAsync(x => x.Name == dto.Name))
             {
                 serviceResponse.Data = null;
                 return serviceResponse;
@@ -61,7 +61,7 @@ namespace StepUpApi.Services
 
             var location = _mapper.Map<Surgery>(dto);
 
-            _context.Locations.Add(location);
+            _context.Surgeries.Add(location);
             await _context.SaveChangesAsync();
 
             serviceResponse.Data = location;
@@ -72,7 +72,7 @@ namespace StepUpApi.Services
         {
             var serviceResponse = new ServiceResponse<Surgery>();
 
-            var location = await _context.Locations.FirstOrDefaultAsync(x => x.Id == id);
+            var location = await _context.Surgeries.FirstOrDefaultAsync(x => x.Id == id);
             if (location == null)
             {
                 serviceResponse.Data = null;
@@ -99,7 +99,7 @@ namespace StepUpApi.Services
 
             var location = serviceResponse.Data;
             location.IsDeleted = true;
-            _context.Locations.Update(location);
+            _context.Surgeries.Update(location);
             await _context.SaveChangesAsync();
 
             return serviceResponse;

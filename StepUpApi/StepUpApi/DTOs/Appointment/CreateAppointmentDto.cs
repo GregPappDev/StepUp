@@ -1,4 +1,6 @@
 ﻿using StepUpApi.Models;
+using StepUpApi.DTOs.UserDto;
+
 using System.ComponentModel.DataAnnotations;
 
 
@@ -8,7 +10,7 @@ namespace StepUpApi.DTOs.Appointment
     {
         public DateTime? DateTime { get; set; }
         
-        public Surgery? Surgery { get; set; }
-        public ICollection<User> PersonnelAttending { get; set; } = new List<User>();
+        public Guid? SurgeryId { get; set; }
+        public ICollection<Guid> UserIds { get; set; } = new List<Guid>();
     }
 }

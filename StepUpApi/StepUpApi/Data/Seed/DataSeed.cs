@@ -16,7 +16,7 @@ namespace StepUpApi.Data.Seed
         {
             CreateExaminationTypes();
             CreateRoles();
-            CreateUsers();
+            
             
             CreateAppointments();
         }

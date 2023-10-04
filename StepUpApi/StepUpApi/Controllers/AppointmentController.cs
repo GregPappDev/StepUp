@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StepUpApi.DTOs.Appointment;
+using StepUpApi.DTOs.ExaminationType;
 using StepUpApi.Models;
 using StepUpApi.Services.Interfaces;
 
@@ -27,6 +28,12 @@ namespace StepUpApi.Controllers
         public async Task<ActionResult<IEnumerable<NotAttendedDto>>> GetNotAttended()
         {
             return Ok(await _service.GetNotAttended());
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<ServiceResponse<Appointment>>> Create([FromBody] CreateAppointmentDto dto)
+        {
+            return Ok(await _service.Create(dto));
         }
     }
 }

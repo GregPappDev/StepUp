@@ -55,15 +55,20 @@ namespace StepUpApi.Services
         {
             var response = new ServiceResponse<Appointment>();
             
-            if (dto.DateTime == default(DateTime) || dto.Surgery == null || dto.PersonnelAttending.Count < 1) 
+            if (dto.DateTime == default(DateTime) || dto.SurgeryId == null || dto.UserIds.Count < 1) 
             {
                 response.Data = null;
-                response.Message = "Please provide all necessary fields";
+                response.Message = "Please, provide all necessary fields";
                 response.Success = false;
                 return response;
             }
             
-            var appointment = _mapper.Map<Appointment>(dto);
+            var appointment = new Appointment()
+            {
+                DateTime = (DateTime)dto.DateTime,
+                Surgery = _context.Surgeries.FirstOrDefault(surgery => surgery.Id == dto.SurgeryId),
+                PersonnelAttending = _context.Users.Where(user => dto.UserIds.Any(g => g == user.Id)).ToList(),
+            };
             _context.Appointments.Add(appointment);
             await _context.SaveChangesAsync();
 
