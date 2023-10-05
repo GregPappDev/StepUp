@@ -45,7 +45,7 @@ namespace StepUpApi.Services
                     count = group.Count()
                 })
                 .OrderByDescending(item => item.count)
-                .ToListAsync();                ;
+                .ToListAsync();
                 
 
             return response;
