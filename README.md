@@ -20,6 +20,7 @@ This is a real life project and the primary goal is to create an app for an occu
 
 The development is still at a relatively early stage. Most work has been done on the backend but there are already fully functioning features as well. To try some of these you can do the following:
 <ul>
+  <li>use branch: 34-create-new-appointments-from-frontend</li>
   <li>in the menu bar click 'Előjegyzés' then</li>
   <ul>
     <li>pick 'Eger' from the 'Rendelő' dropdown and choose today's date</li>
@@ -36,6 +37,7 @@ The development is still at a relatively early stage. Most work has been done on
 ## Installation and Usage Instructions
 <ol>
   <li>clone the project</li>
+  <li>use branch: 34-create-new-appointments-from-frontend</li>
   <li>to download all frontend dependencies cd into the ElectronApp folder and run 'npm i'</li>
   <li>run the backend which will populate the SQL database with some dummy data</li>
   <li>start the desktop app by running 'npm run dev'</li>
